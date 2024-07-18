@@ -1,0 +1,14 @@
+{
+  "name": "fun-pokemon-battler",
+  "version": "1.0.0",
+  "description": "For this sprint, head to Northcoder's L2C app:",
+  "main": "pokemon.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^29.7.0"
+  }
+}

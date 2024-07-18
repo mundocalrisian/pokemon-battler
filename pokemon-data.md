@@ -1,5 +1,3 @@
-Right click on this file and tap preview!
-
 <table>
 <tr><th>Name</th><th>Type</th><th>Hitpoints</th><th>Move</th><th>Damage</th><th>Strength</th><th>Weakness</th><th>Sound</th></tr>
 <tr><td>Eevee</td><td>Normal</td><td>55</td><td>Headbutt</td><td>18</td><td>None</td><td>Fighting</td><td>Eev... Eevee!</td></tr>
