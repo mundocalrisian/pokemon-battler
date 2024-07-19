@@ -13,8 +13,7 @@ class Pokemon {
     }
 
     takeDamage(damage){
-        this.hitPoints - damage
-        console.log(`${this.name} lost ${damage}HP!`)
+        this.hitPoints -= damage
     }
 
     useMove(){
@@ -23,7 +22,7 @@ class Pokemon {
     }
 
     hasFainted(){
-        return hp === 0 ? true : false
+        return this.hitPoints === 0 ? true : false
     }
 }
 
