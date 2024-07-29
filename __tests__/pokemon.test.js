@@ -3,6 +3,7 @@ const { FireType, Charmander } = require('../classes/fire-type');
 const { GrassType, Bulbasaur } = require('../classes/grass-type');
 const { WaterType, Squirtle } = require('../classes/water-type');
 const { NormalType, Eevee } = require('../classes/normal-type');
+const { Pokeball } = require('../classes/pokeball');
 
 describe('POKEMON CLASS', () => {
     test('should create a new pokemon with appropriate properties', async () => {
@@ -402,6 +403,44 @@ describe('INDIVIDUAL POKEMON', () => {
             expect(actual2).toEqual(false)
             const actual3 = testEevee.isWeakTo(testBulbasaur)
             expect(actual3).toEqual(false)
+        });
+    });
+});
+describe('POKEBALL', () => {
+    test('should create a new empty Pokeball', () => {
+        const testPokeball = new Pokeball()
+        expect(testPokeball).toBeInstanceOf(Pokeball)
+        expect(testPokeball).toBeInstanceOf(Object)
+        expect(Object.keys(testPokeball.storedPokemon).length).toEqual(0)
+    });
+    describe('THROW', () => {
+        test('should capture a supplied Pokemon if the Pokeball is empty', () => {
+            
+        });
+        test('should return a message and not capture a supplied Pokemon if the Pokeball is not empty', () => {
+            
+        });
+        test('should return the stored Pokemon when no Pokemon is supplied and there is a Pokemon stored', () => {
+            
+        });
+        test('should return a message when no Pokemon is supplied and there is no Pokemon stored', () => {
+            
+        });
+    });
+    describe('ISEMPTY', () => {
+        test('should return true if a pokemon is stored in the Pokeball', () => {
+            
+        });
+        test('should return false if the Pokeball is empty', () => {
+            
+        });
+    });
+    describe('CONTAINS', () => {
+        test('should return the name of the Pokemon if a Pokemon is stored', () => {
+            
+        });
+        test('should return a message if the Pokeball storeage is emptty', () => {
+            
         });
     });
 });
