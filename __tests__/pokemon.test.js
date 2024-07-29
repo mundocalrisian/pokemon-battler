@@ -1,4 +1,8 @@
-const {Pokemon, FireType, GrassType, WaterType, NormalType} = require('../pokemon')
+const {Pokemon} = require('../classes/pokemon');
+const { FireType } = require('../classes/fire-type');
+const { GrassType } = require('../classes/grass-type');
+const { WaterType } = require('../classes/water-type');
+const { NormalType } = require('../classes/normal-type');
 
 describe('POKEMON CLASS', () => {
     test('should create a new pokemon with appropriate properties', async () => {
