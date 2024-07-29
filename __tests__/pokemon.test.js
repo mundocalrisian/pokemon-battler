@@ -1,8 +1,8 @@
 const {Pokemon} = require('../classes/pokemon');
-const { FireType } = require('../classes/fire-type');
-const { GrassType } = require('../classes/grass-type');
-const { WaterType } = require('../classes/water-type');
-const { NormalType } = require('../classes/normal-type');
+const { FireType, Charmander } = require('../classes/fire-type');
+const { GrassType, Bulbasaur } = require('../classes/grass-type');
+const { WaterType, Squirtle } = require('../classes/water-type');
+const { NormalType, Eevee } = require('../classes/normal-type');
 
 describe('POKEMON CLASS', () => {
     test('should create a new pokemon with appropriate properties', async () => {
@@ -253,5 +253,155 @@ describe('NORMAL CLASS', () => {
         expect(output2).toEqual(false)
         expect(output3).toEqual(false)
         expect(output4).toEqual(false)
+    });
+});
+describe('INDIVIDUAL POKEMON', () => {
+    describe('CHARMANDER', () => {
+        test('should create a Charmander pokemon with appropriate properties', () => {
+            const testCharmander = new Charmander(44, 17)
+            const expectedCharmander = {
+                name: "Charmander",
+                hitPoints: 44,
+                attackDamage: 17,
+                move: "Ember",
+                type: "fire"
+            }
+            expect(testCharmander).toMatchObject(expectedCharmander)
+        });
+        test('Charmander should be effective against Bulbasaur and not against Squirtle or Eevee', () => {
+            const testCharmander = new Charmander(44, 17)
+            const testBulbasaur = new Bulbasaur(45, 16)
+            const testSquirtle = new Squirtle(44, 16)
+            const testEevee = new Eevee(55, 12)
+            const actual1 = testCharmander.isEffectiveAgainst(testBulbasaur)
+            expect(actual1).toEqual(true)
+            const actual2 = testCharmander.isEffectiveAgainst(testSquirtle)
+            expect(actual2).toEqual(false)
+            const actual3 = testCharmander.isEffectiveAgainst(testEevee)
+            expect(actual3).toEqual(false)
+        });
+        test('Charmander should be weak to Squirtle but not Bulbasaur or Eevee', () => {
+            const testCharmander = new Charmander(44, 17)
+            const testSquirtle = new Squirtle(44, 16)
+            const testBulbasaur = new Bulbasaur(45, 16)
+            const testEevee = new Eevee(55, 12)
+            const actual1 = testCharmander.isWeakTo(testSquirtle)
+            expect(actual1).toEqual(true)
+            const actual2 = testCharmander.isWeakTo(testBulbasaur)
+            expect(actual2).toEqual(false)
+            const actual3 = testCharmander.isWeakTo(testEevee)
+            expect(actual3).toEqual(false)
+        }); 
+    });
+    describe('SQUIRTLE', () => {
+        test('should create a Squirtle pokemon with appropriate properties', () => {
+            const testSquirtle = new Squirtle(44, 16)
+            const expectedSquirtle = {
+                name: "Squirtle",
+                hitPoints: 44,
+                attackDamage: 16,
+                move: "Bubble",
+                type: "water"
+            }
+            expect(testSquirtle).toMatchObject(expectedSquirtle)
+        });
+        test('Squirtle should be effective against Charmander and not against Bulbasaur or Eevee', () => {
+            const testSquirtle = new Squirtle(44, 16)
+            const testCharmander = new Charmander(44, 17)
+            const testBulbasaur = new Bulbasaur(45, 16)
+            const testEevee = new Eevee(55, 12)
+            const actual1 = testSquirtle.isEffectiveAgainst(testCharmander)
+            expect(actual1).toEqual(true)
+            const actual2 = testSquirtle.isEffectiveAgainst(testBulbasaur)
+            expect(actual2).toEqual(false)
+            const actual3 = testSquirtle.isEffectiveAgainst(testEevee)
+            expect(actual3).toEqual(false)
+        });
+        test('Squirtle should be weak to Bulbasaur but not Charmander or Eevee', () => {
+            const testSquirtle = new Squirtle(44, 16)
+            const testBulbasaur = new Bulbasaur(45, 16)
+            const testCharmander = new Charmander(44, 17)
+            const testEevee = new Eevee(55, 12)
+            const actual1 = testSquirtle.isWeakTo(testBulbasaur)
+            expect(actual1).toEqual(true)
+            const actual2 = testSquirtle.isWeakTo(testCharmander)
+            expect(actual2).toEqual(false)
+            const actual3 = testSquirtle.isWeakTo(testEevee)
+            expect(actual3).toEqual(false)
+        });
+    });
+    describe('BULBASAUR', () => {
+        test('should create a Bulbasaur pokemon with appropriate properties', () => {
+            const testBulbasaur = new Bulbasaur(45, 16)
+            const expectedBulbasaur = {
+                name: "Bulbasaur",
+                hitPoints: 45,
+                attackDamage: 16,
+                move: "Vine Whip",
+                type: "grass"
+            }
+            expect(testBulbasaur).toMatchObject(expectedBulbasaur)
+        });
+        test('Bulbasaur should be effective against Squirtle and not against Charmander or Eevee', () => {
+            const testBulbasaur = new Bulbasaur(45, 16)
+            const testSquirtle = new Squirtle(44, 16)
+            const testCharmander = new Charmander(44, 17)
+            const testEevee = new Eevee(55, 12)
+            const actual1 = testBulbasaur.isEffectiveAgainst(testSquirtle)
+            expect(actual1).toEqual(true)
+            const actual2 = testBulbasaur.isEffectiveAgainst(testCharmander)
+            expect(actual2).toEqual(false)
+            const actual3 = testBulbasaur.isEffectiveAgainst(testEevee)
+            expect(actual3).toEqual(false)
+        });
+        test('Bulbasaur should be weak to Charmander but not Squirtle or Eevee', () => {
+            const testBulbasaur = new Bulbasaur(45, 16)
+            const testCharmander = new Charmander(44, 17)
+            const testSquirtle = new Squirtle(44, 16)
+            const testEevee = new Eevee(55, 12)
+            const actual1 = testBulbasaur.isWeakTo(testCharmander)
+            expect(actual1).toEqual(true)
+            const actual2 = testBulbasaur.isWeakTo(testSquirtle)
+            expect(actual2).toEqual(false)
+            const actual3 = testBulbasaur.isWeakTo(testEevee)
+            expect(actual3).toEqual(false)
+        });
+    });
+    describe('EEVEE', () => {
+        test('should create an Eevee pokemon with appropriate properties', () => {
+            const testEevee = new Eevee(55, 12)
+            const expectedEevee = {
+                name: "Eevee",
+                hitPoints: 55,
+                attackDamage: 12,
+                move: "Tackle",
+                type: "normal"
+            }
+            expect(testEevee).toMatchObject(expectedEevee)
+        });
+        test('Bulbasaur should not be effective against any other Pokemon', () => {
+            const testEevee = new Eevee(55, 12)
+            const testBulbasaur = new Bulbasaur(45, 16)
+            const testSquirtle = new Squirtle(44, 16)
+            const testCharmander = new Charmander(44, 17)
+            const actual1 = testEevee.isEffectiveAgainst(testSquirtle)
+            expect(actual1).toEqual(false)
+            const actual2 = testEevee.isEffectiveAgainst(testCharmander)
+            expect(actual2).toEqual(false)
+            const actual3 = testEevee.isEffectiveAgainst(testBulbasaur)
+            expect(actual3).toEqual(false)
+        });
+        test('Bulbasaur should not be weak to any other Pokemon', () => {
+            const testEevee = new Eevee(55, 12)
+            const testCharmander = new Charmander(44, 17)
+            const testSquirtle = new Squirtle(44, 16)
+            const testBulbasaur = new Bulbasaur(45, 16)
+            const actual1 = testEevee.isWeakTo(testCharmander)
+            expect(actual1).toEqual(false)
+            const actual2 = testEevee.isWeakTo(testSquirtle)
+            expect(actual2).toEqual(false)
+            const actual3 = testEevee.isWeakTo(testBulbasaur)
+            expect(actual3).toEqual(false)
+        });
     });
 });

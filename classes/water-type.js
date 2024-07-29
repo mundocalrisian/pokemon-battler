@@ -19,4 +19,14 @@ class WaterType extends Pokemon {
     }
 }
 
-module.exports = {WaterType}
+class Squirtle extends WaterType {
+    constructor(hitPoints, attackDamage, move = "Bubble"){
+        super(hitPoints, attackDamage)
+        this.name  = "Squirtle"
+        this.hitPoints = hitPoints
+        this.attackDamage = attackDamage
+        this.move = move
+    }
+}
+
+module.exports = {WaterType, Squirtle}

@@ -19,4 +19,14 @@ class FireType extends Pokemon {
     }
 }
 
-module.exports = {FireType}
+class Charmander extends FireType {
+    constructor(hitPoints, attackDamage, move = "Ember"){
+        super(hitPoints, attackDamage)
+        this.name  = "Charmander"
+        this.hitPoints = hitPoints
+        this.attackDamage = attackDamage
+        this.move = move
+    }
+}
+
+module.exports = {FireType, Charmander}

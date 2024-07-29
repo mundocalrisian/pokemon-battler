@@ -19,4 +19,14 @@ class NormalType extends Pokemon {
     }
 }
 
-module.exports = {NormalType}
+class Eevee extends NormalType {
+    constructor(hitPoints, attackDamage, move = "Tackle"){
+        super(hitPoints, attackDamage)
+        this.name  = "Eevee"
+        this.hitPoints = hitPoints
+        this.attackDamage = attackDamage
+        this.move = move
+    }
+}
+
+module.exports = {NormalType, Eevee}
