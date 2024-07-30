@@ -5,17 +5,22 @@ class Pokeball {
         this.storedPokemon = {}
     }
 
-    throw(pokemon){
-
+    set throw(pokemon){
+        if (!this.storedPokemon.name) {
+            this.storedPokemon = pokemon
+            console.log(`You caught ${this.storedPokemon.name}!`)
+        } else {
+            console.log('This pokeball is full!');
+        }
     }
-    // throw
-    // Takes a Pokemon object as an argument. If the pokeball is empty it will capture the passed Pokemon.
-    // If it isn't empty ,the user should not be allowed to capture a pokemon with it!
-    // The throw method should also console log something like ("you caught pokemonX's name") when a Pokemon has been caught.
-    // Additionally, the method can be invoked with no argument.
-    // In this case the method should return the stored Pokemon. The throw method should console log something like ("GO pokemonX's name!!") in this scenario.
-    // If the ball is empty then the user should be informed accordingly.
 
+    get throw(){
+        if (this.storedPokemon.name) {
+            console.log (`GO ${this.storedPokemon.name}!`)
+        } else {
+            console.log('This pokeball is empty! Why not try and catch another?')
+        }
+    }
 
     // isEmpty
 
