@@ -22,10 +22,9 @@ class Pokeball {
         }
     }
 
-    // isEmpty
-
-    // Should return a boolean representing whether or not a Pokemon is stored inside it.
-
+    get isEmpty(){
+        return !this.storedPokemon.name ? true : false
+    }
 
     // contains
 

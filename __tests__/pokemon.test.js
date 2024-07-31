@@ -5,6 +5,9 @@ const { WaterType, Squirtle } = require('../classes/water-type');
 const { NormalType, Eevee } = require('../classes/normal-type');
 const { Pokeball } = require('../classes/pokeball');
 
+beforeEach(() => {logSpy = jest.spyOn(global.console, 'log')})
+afterEach(() => {logSpy.mockRestore()})
+
 describe('POKEMON CLASS', () => {
     test('should create a new pokemon with appropriate properties',() => {
         const testPokemon = new Pokemon("Test Pokemon", 100, 25, "test move")
@@ -38,7 +41,6 @@ describe('POKEMON CLASS', () => {
     });
     test('useMove: should return a console log of what move was used', () => {
         const testPokemon = new Pokemon("Test Pokemon", 100, 25, "test move")
-        const logSpy = jest.spyOn(global.console, 'log');
         testPokemon.useMove()
         expect(logSpy).toHaveBeenCalled()
         expect(logSpy).toHaveBeenCalledWith("Test Pokemon used test move!")
@@ -417,7 +419,6 @@ describe('POKEBALL', () => {
         test('should capture a supplied Pokemon if the Pokeball is empty', () => {
             const testPokemon = new Pokemon("Test Pokemon", 100, 50)
             const testPokeball = new Pokeball()
-            const logSpy = jest.spyOn(global.console, 'log');
             testPokeball.throw = testPokemon
             const expectedObject = {
                 name: 'Test Pokemon',
@@ -428,13 +429,11 @@ describe('POKEBALL', () => {
             expect(testPokeball.storedPokemon).toMatchObject(expectedObject)
             expect(logSpy).toHaveBeenCalled()
             expect(logSpy).toHaveBeenCalledWith(`You caught ${testPokemon.name}!`)
-            logSpy.mockRestore();
         });
         test('should return a message and not capture a supplied Pokemon if the Pokeball is not empty', () => {
             const testPokemon1 = new Pokemon("Test Pokemon", 100, 50)
             const testPokemon2 = new Pokemon("Another Pokemon")
             const testPokeball = new Pokeball()
-            const logSpy = jest.spyOn(global.console, 'log');
             testPokeball.throw = testPokemon1
             testPokeball.throw = testPokemon2
             expect(testPokeball.storedPokemon.name).not.toEqual("Another Pokemon")
@@ -444,15 +443,12 @@ describe('POKEBALL', () => {
             const testPokemon = new Pokemon("Test Pokemon", 100, 50)
             const testPokeball = new Pokeball()
             testPokeball.throw = testPokemon
-            const logSpy = jest.spyOn(global.console, 'log');
             testPokeball.throw
             expect(logSpy).toHaveBeenCalled()
             expect(logSpy).toHaveBeenCalledWith(`GO ${testPokemon.name}!`)
-            logSpy.mockRestore();
         });
         test('should return a message when no Pokemon is supplied and there is no Pokemon stored', () => {
             const testPokeball = new Pokeball()
-            const logSpy = jest.spyOn(global.console, 'log')
             testPokeball.throw
             expect(logSpy).toHaveBeenCalled()
             expect(logSpy).toHaveBeenCalledWith('This pokeball is empty! Why not try and catch another?')
@@ -460,10 +456,16 @@ describe('POKEBALL', () => {
     });
     describe('ISEMPTY', () => {
         test('should return true if a pokemon is stored in the Pokeball', () => {
-            
+            const testPokeball = new Pokeball()
+            const actual = testPokeball.isEmpty
+            expect(actual).toEqual(true)
         });
         test('should return false if the Pokeball is empty', () => {
-            
+            const testPokeball = new Pokeball()
+            const testPokemon = new Pokemon("Test Pokemon")
+            testPokeball.throw = testPokemon
+            const actual = testPokeball.isEmpty
+            expect(actual).toEqual(false)
         });
     });
     describe('CONTAINS', () => {
