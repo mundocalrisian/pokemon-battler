@@ -26,10 +26,10 @@ class Pokeball {
         return !this.storedPokemon.name ? true : false
     }
 
-    // contains
+    get contains(){
+        return this.storedPokemon.name ? this.storedPokemon.name : 'empty...'
+    }
 
-    // Should return the name of the Pokemon that is stored or
-    // If the pokeball is empty is should return "empty ...".
 }
 
 module.exports = {Pokeball}

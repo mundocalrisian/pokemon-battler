@@ -470,10 +470,17 @@ describe('POKEBALL', () => {
     });
     describe('CONTAINS', () => {
         test('should return the name of the Pokemon if a Pokemon is stored', () => {
-            
+            const testPokeball = new Pokeball()
+            const testPokemon = new Pokemon("Test Pokemon")
+            testPokeball.throw = testPokemon
+            const actual = testPokeball.contains
+            expect(actual).toEqual("Test Pokemon")
         });
         test('should return a message if the Pokeball storeage is emptty', () => {
-            
+            const testPokeball = new Pokeball()
+            const testPokemon = new Pokemon("Test Pokemon")
+            const actual = testPokeball.contains
+            expect(actual).toEqual("empty...")
         });
     });
 });
