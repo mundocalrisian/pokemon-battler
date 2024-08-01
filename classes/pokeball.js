@@ -30,6 +30,9 @@ class Pokeball {
         return this.storedPokemon.name ? this.storedPokemon.name : 'empty...'
     }
 
+    // maybe have a release method?
+    // when called returns this.storeedPokemon back to {}
+
 }
 
-module.exports = {Pokeball}
+module.exports = { Pokeball }

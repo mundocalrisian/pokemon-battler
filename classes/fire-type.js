@@ -29,4 +29,4 @@ class Charmander extends FireType {
     }
 }
 
-module.exports = {FireType, Charmander}
+module.exports = { FireType, Charmander }

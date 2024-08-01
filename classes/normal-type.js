@@ -29,4 +29,4 @@ class Eevee extends NormalType {
     }
 }
 
-module.exports = {NormalType, Eevee}
+module.exports = { NormalType, Eevee }

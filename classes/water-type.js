@@ -29,4 +29,4 @@ class Squirtle extends WaterType {
     }
 }
 
-module.exports = {WaterType, Squirtle}
+module.exports = { WaterType, Squirtle }

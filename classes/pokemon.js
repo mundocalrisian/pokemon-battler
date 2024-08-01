@@ -26,4 +26,4 @@ class Pokemon {
     }
 }
 
-module.exports = {Pokemon}
+module.exports = { Pokemon }

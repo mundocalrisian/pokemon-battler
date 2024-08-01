@@ -29,4 +29,4 @@ class Bulbasaur extends GrassType {
     }
 }
 
-module.exports = {GrassType, Bulbasaur}
+module.exports = { GrassType, Bulbasaur }
