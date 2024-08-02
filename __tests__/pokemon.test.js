@@ -484,66 +484,76 @@ describe('POKEBALL', () => {
             expect(actual).toEqual("empty...")
         });
     });
-    describe('TRAINER', () => {
-        test('should create a new trainer with name and belt property', () => {
-            const testTrainer = new Trainer("Test Trainer")
-            expect(testTrainer).toHaveProperty('name')
-            expect(testTrainer.name).toEqual('Test Trainer')
-            expect(testTrainer).toHaveProperty('belt')
-        });
-        test('belt property should have 6 empty Pokeballs nested', () => {
-            const testTrainer = new Trainer("Test Trainer")
-            const belt = testTrainer.belt
-            expect(belt.length).toEqual(6)
-            belt.forEach((pokeball) => {
-                expect(pokeball).toHaveProperty("storedPokemon")
-                expect(pokeball.storedPokemon).not.toHaveProperty("name")
-            })
+});
+describe('TRAINER', () => {
+    test('should create a new trainer with name and belt property', () => {
+        const testTrainer = new Trainer("Test Trainer")
+        expect(testTrainer).toHaveProperty('name')
+        expect(testTrainer.name).toEqual('Test Trainer')
+        expect(testTrainer).toHaveProperty('belt')
+    });
+    test('belt property should have 6 empty Pokeballs nested', () => {
+        const testTrainer = new Trainer("Test Trainer")
+        const belt = testTrainer.belt
+        expect(belt.length).toEqual(6)
+        belt.forEach((pokeball) => {
+            expect(pokeball).toHaveProperty("storedPokemon")
+            expect(pokeball.storedPokemon).not.toHaveProperty("name")
+        })
 
+    });
+    describe('CATCH', () => {
+        test('should use an empty Pokeball throw method to catch a pokemon', () => {
+            const testTrainer = new Trainer ("Test Trainer")
+            const testPokemon = new Pokemon ("Test Pokemon")
+            testTrainer.catch(testPokemon)
+            expect(logSpy).toHaveBeenCalledWith("You caught Test Pokemon!")
+            expect(testTrainer.belt[0].storedPokemon.name).toEqual("Test Pokemon")
+            expect(testTrainer.pokemonCount).toEqual(1)
+            expect(testTrainer.belt[1].storedPokemon.name).not.toEqual("Test Pokemon")
         });
-        describe('CATCH', () => {
-            test('should use an empty Pokeball throw method to catch a pokemon', () => {
-                const testTrainer = new Trainer ("Test Trainer")
-                const testPokemon = new Pokemon ("Test Pokemon")
-                testTrainer.catch(testPokemon)
-                expect(logSpy).toHaveBeenCalledWith("You caught Test Pokemon!")
-                // console.log(testTrainer.belt, "-----after first catch")
-                expect(testTrainer.belt[0].storedPokemon.name).toEqual("Test Pokemon")
-                expect(testTrainer.pokemonCount).toEqual(1)
-                expect(testTrainer.belt[1].storedPokemon.name).not.toEqual("Test Pokemon")
-            });
-            test('should capture subsequent Pokemon in a different Pokeball ', () => {
-                const testTrainer = new Trainer ("Test Trainer")
-                const testPokemon1 = new Pokemon ("Test Pokemon 1", 100, 50)
-                const testPokemon2 = new Pokemon ("Test Pokemon 2", 100, 50)
-                const testPokemon3 = new Pokemon ("Test Pokemon 3", 100, 50)
-                testTrainer.catch(testPokemon1)
-                testTrainer.catch(testPokemon2)
-                testTrainer.catch(testPokemon3)
-                expect(logSpy).toHaveBeenCalled()
-                expect(logSpy).toHaveBeenCalledTimes(3)
-                expect(testTrainer.belt[0].storedPokemon.name).toEqual("Test Pokemon 1")
-                expect(testTrainer.belt[1].storedPokemon.name).toEqual("Test Pokemon 2")
-                expect(testTrainer.belt[2].storedPokemon.name).toEqual("Test Pokemon 3")
-                expect(testTrainer.pokemonCount).toEqual(3)
-            });
-            test('should return a message if more than the maximum of 6 Pokemon are caught', () => {
-                const testTrainer = new Trainer ("Test Trainer")
-                const testPokemon = new Pokemon ("Test Pokemon", 100, 50)
-                testTrainer.catch(testPokemon)
-                testTrainer.catch(testPokemon)
-                testTrainer.catch(testPokemon)
-                testTrainer.catch(testPokemon)
-                testTrainer.catch(testPokemon)
-                testTrainer.catch(testPokemon)
-                testTrainer.catch(testPokemon)
-                expect(logSpy).toHaveBeenCalled()
-                expect(logSpy).toHaveBeenCalledTimes(7)
-                expect(logSpy).toHaveBeenCalledWith("Sorry, you don't have any empty pokeballs!")
-            });
+        test('should capture subsequent Pokemon in a different Pokeball ', () => {
+            const testTrainer = new Trainer ("Test Trainer")
+            const testPokemon1 = new Pokemon ("Test Pokemon 1", 100, 50)
+            const testPokemon2 = new Pokemon ("Test Pokemon 2", 100, 50)
+            const testPokemon3 = new Pokemon ("Test Pokemon 3", 100, 50)
+            testTrainer.catch(testPokemon1)
+            testTrainer.catch(testPokemon2)
+            testTrainer.catch(testPokemon3)
+            expect(logSpy).toHaveBeenCalled()
+            expect(logSpy).toHaveBeenCalledTimes(3)
+            expect(testTrainer.belt[0].storedPokemon.name).toEqual("Test Pokemon 1")
+            expect(testTrainer.belt[1].storedPokemon.name).toEqual("Test Pokemon 2")
+            expect(testTrainer.belt[2].storedPokemon.name).toEqual("Test Pokemon 3")
+            expect(testTrainer.pokemonCount).toEqual(3)
         });
-        describe('GETPOKEMON', () => {
-            
+        test('should return a message if more than the maximum of 6 Pokemon are caught', () => {
+            const testTrainer = new Trainer ("Test Trainer")
+            const testPokemon = new Pokemon ("Test Pokemon", 100, 50)
+            testTrainer.catch(testPokemon)
+            testTrainer.catch(testPokemon)
+            testTrainer.catch(testPokemon)
+            testTrainer.catch(testPokemon)
+            testTrainer.catch(testPokemon)
+            testTrainer.catch(testPokemon)
+            testTrainer.catch(testPokemon)
+            expect(logSpy).toHaveBeenCalled()
+            expect(logSpy).toHaveBeenCalledTimes(7)
+            expect(logSpy).toHaveBeenCalledWith("Sorry, you don't have any empty pokeballs!")
+        });
+    });
+    describe('GETPOKEMON', () => {
+        test('should search trainer belt for the supplied Pokemon and use the throw method', () => {
+            const testTrainer = new Trainer ("Test Trainer")
+            const testPokemon1 = new Pokemon ("Test Pokemon 1", 100, 50)
+            const testPokemon2 = new Pokemon ("Test Pokemon 2", 100, 50)
+            const testPokemon3 = new Pokemon ("Test Pokemon 3", 100, 50)
+            testTrainer.catch(testPokemon1)
+            testTrainer.catch(testPokemon2)
+            testTrainer.catch(testPokemon3)
+            testTrainer.getPokemon(testPokemon2)
+            expect(logSpy).toHaveBeenCalledTimes(4)
+            expect(logSpy).toHaveBeenCalledWith("GO Test Pokemon 2!")
         });
     });
 });

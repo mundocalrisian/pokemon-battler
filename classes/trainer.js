@@ -25,13 +25,18 @@ class Trainer {
 
     }
 
+    getPokemon(pokemon) {
+
+        for (const pokeball of this.belt){
+            if (pokeball.storedPokemon.name === pokemon.name){
+                pokeball.throw
+                break;
+            }
+        }
+
+    }
+
 }
-
-// catch
-
-// Takes a Pokemon as an argument.
-// It should use one of its empty Pokeball's throw method to catch the Pokemon.
-// Should do something if you don't have any empty Pokeballs, what and how is up to you.
 
 
 // getPokemon
