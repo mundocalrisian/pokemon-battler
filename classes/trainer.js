@@ -27,13 +27,15 @@ class Trainer {
 
     getPokemon(pokemon) {
 
+        let isPokemonStored = false
         for (const pokeball of this.belt){
             if (pokeball.storedPokemon.name === pokemon.name){
                 pokeball.throw
+                isPokemonStored = true
                 break;
             }
         }
-
+        if (!isPokemonStored) console.log("Sorry, you don't have this pokemon in your belt");
     }
 
 }

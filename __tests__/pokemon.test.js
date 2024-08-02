@@ -555,5 +555,16 @@ describe('TRAINER', () => {
             expect(logSpy).toHaveBeenCalledTimes(4)
             expect(logSpy).toHaveBeenCalledWith("GO Test Pokemon 2!")
         });
+        test('should return a message if the supplied pokemon is not in the belt', () => {
+            const testTrainer = new Trainer ("Test Trainer")
+            const testPokemon1 = new Pokemon ("Test Pokemon 1", 100, 50)
+            const testPokemon2 = new Pokemon ("Test Pokemon 2", 100, 50)
+            const testPokemon3 = new Pokemon ("Test Pokemon 3", 100, 50)
+            testTrainer.catch(testPokemon1)
+            testTrainer.catch(testPokemon2)
+            testTrainer.getPokemon(testPokemon3)
+            expect(logSpy).toHaveBeenCalledTimes(3)
+            expect(logSpy).toHaveBeenCalledWith("Sorry, you don't have this pokemon in your belt")
+        });
     });
 });
