@@ -5,6 +5,7 @@ const { WaterType, Squirtle } = require('../classes/water-type');
 const { NormalType, Eevee } = require('../classes/normal-type');
 const { Pokeball } = require('../classes/pokeball');
 const { Trainer } = require('../classes/trainer');
+const { Battle } = require('../battle');
 
 beforeEach(() => {logSpy = jest.spyOn(global.console, 'log')})
 afterEach(() => {logSpy.mockRestore()})
@@ -565,6 +566,45 @@ describe('TRAINER', () => {
             testTrainer.getPokemon(testPokemon3)
             expect(logSpy).toHaveBeenCalledTimes(3)
             expect(logSpy).toHaveBeenCalledWith("Sorry, you don't have this pokemon in your belt")
+        });
+    });
+});
+describe.only('BATTLE', () => {
+    test('should take 2 trainers and 2 pokemon', () => {
+        const trainer1 = new Trainer('Trainer 1')
+        const trainer2 = new Trainer('Trainer 2')
+        const testCharmander = new Charmander(44, 17)
+        // should be effect against - 
+        const testBulbasaur = new Bulbasaur(45, 16)
+        const testPokemon2 = new Pokemon ("Test Pokemon 2", 100, 50)
+        trainer1.catch(testCharmander)
+        trainer2.catch(testBulbasaur)
+        const testBattle = new Battle(trainer1, trainer2, testCharmander.name, testBulbasaur.name)
+        console.log(testBattle);
+        expect(testBattle.trainer1).toBeInstanceOf(Trainer)
+        expect(testBattle.trainer2).toBeInstanceOf(Trainer)
+        expect(testBattle.pokemon1).toEqual("Charmander")
+        expect(testBattle.pokemon2).toEqual("Bulbasaur")
+    });
+    // should take 2 trainers and 2 pokemon
+    describe('FIGHT', () => {
+        test('should take the Pokemon whos turn it is as the attacker', () => {
+            
+        });
+        test('should deduct attackers attack damage from the defenders hit points', () => {
+            
+        });
+        test('should multiple damage by 0.75 if the defender is strong against the attacker', () => {
+            
+        });
+        test('should multiple damage by 1.25 if the defender is weak against the attacker', () => {
+            
+        });
+        test('should return a message after each attack, depending on the defenders weakness or strength', () => {
+            
+        });
+        test('should return the attacker as the winner if the defending Pokemon faints', () => {
+            
         });
     });
 });
