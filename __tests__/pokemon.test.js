@@ -569,20 +569,20 @@ describe('TRAINER', () => {
         });
     });
 });
-describe('BATTLE', () => {
+describe.only('BATTLE', () => {
     test('should take 2 trainers and 2 pokemon', () => {
         const trainer1 = new Trainer('Trainer 1')
         const trainer2 = new Trainer('Trainer 2')
         const testCharmander = new Charmander(44, 17)
         // should be effect against - 
         const testBulbasaur = new Bulbasaur(45, 16)
-        trainer1.catch(testCharmander)
-        trainer2.catch(testBulbasaur)
-        const testBattle = new Battle(trainer1, trainer2, testCharmander.name, testBulbasaur.name)
+        // trainer1.catch(testCharmander)
+        // trainer2.catch(testBulbasaur)
+        const testBattle = new Battle(trainer1, trainer2, testCharmander, testBulbasaur)
         expect(testBattle.trainer1).toBeInstanceOf(Trainer)
         expect(testBattle.trainer2).toBeInstanceOf(Trainer)
-        expect(testBattle.pokemon1).toEqual("Charmander")
-        expect(testBattle.pokemon2).toEqual("Bulbasaur")
+        expect(testBattle.pokemon1).toBeInstanceOf(Charmander)
+        expect(testBattle.pokemon2).toBeInstanceOf(Bulbasaur)
     });
     test('coinToss should randomly assign one of the pokemon to current player and current pokemon', () => {
         const trainer1 = new Trainer('Trainer 1')
@@ -613,18 +613,20 @@ describe('BATTLE', () => {
         }
     });
     // should take 2 trainers and 2 pokemon
-    describe.only('FIGHT', () => {
+    describe('FIGHT', () => {
         test('should take the current Pokemon whos turn it is as the attacker and the other Pokemon as the defender', () => {
             const trainer1 = new Trainer('Trainer 1')
             const trainer2 = new Trainer('Trainer 2')
             const testCharmander = new Charmander(44, 17)
             const testBulbasaur = new Bulbasaur(45, 16)
-            const testBattle = new Battle(trainer1, trainer2, testCharmander.name, testBulbasaur.name)
+            const testBattle = new Battle(trainer1, trainer2, testCharmander, testBulbasaur)
             testBattle.currentPlayer = trainer1 
-            testBattle.currentPokemon = testCharmander.name
+            testBattle.currentPokemon = testCharmander
             testBattle.fight(testBattle.currentPokemon)
-            expect(testBattle.attacker).toEqual("Charmander")
-            expect(testBattle.defender).toEqual("Bulbasaur")
+            expect(testBattle.attacker.name).toEqual("Charmander")
+            expect(testBattle.attacker).toBeInstanceOf(Charmander)
+            expect(testBattle.defender.name).toEqual("Bulbasaur")
+            expect(testBattle.defender).toBeInstanceOf(Bulbasaur)
         });
         test('should deduct attackers attack damage from the defenders hit points', () => {
             

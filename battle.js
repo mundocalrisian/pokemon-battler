@@ -38,12 +38,19 @@ class Battle {
 
         this.attacker = pokemonToPlay
         this.defender = ""
+        // assign the defender
         if (pokemonToPlay === this.pokemon1){
             this.defender = this.pokemon2            
         } else {
             this.defender = this.pokemon1
         }
 
+        // attacker use Pokemon useMove() to return attack damage number
+        // use pokemon takeDamage() on defender with damage number
+        // use pokemon isEffectiveAgainst() to see if defender is string against the attacker. if so multiply damage number by 0.75
+        // use pokemon isWeakTo() to see if defender is weak against attacker. if so then multiply damage number by 1.25
+        // log .....'s move was effective/not effective against ....
+        // if defender's faints then attacker wins
 
     }
     
