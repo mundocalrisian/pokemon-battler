@@ -1,4 +1,3 @@
-
 class Battle {
 
     constructor (trainer1, trainer2, pokemon1, pokemon2) {
@@ -6,12 +5,39 @@ class Battle {
         this.trainer2 = trainer2
         this.pokemon1 = pokemon1
         this.pokemon2 = pokemon2
+        this.currentPlayer = ""
+        this.currentPokemon = ""
     }
 
+    coinToss(){
+        if (Math.random() <=0.5){
+            console.log(`${this.trainer1.name} won the coin toss and will go first!`);
+            this.currentPlayer = this.trainer1
+            this.currentPokemon = this.pokemon1
+        } else {
+            console.log(`${this.trainer2.name} won the coin toss and will go first!`);
+            this.currentPlayer = this.trainer2
+            this.currentPokemon = this.pokemon2
+        }
+    }
+
+    switchTurn(){
+        // console.log(this.currentPlayer.name, "-----player");
+        if (this.currentPlayer.name === this.trainer1.name){
+            this.currentPlayer = this.trainer2
+            this.currentPokemon = this.pokemon2
+            console.log(`${this.currentPlayer.name}'s turn now!`);
+        } else {
+            this.currentPlayer = this.trainer1
+            this.currentPokemon = this.pokemon1
+            console.log(`${this.currentPlayer.name}'s turn now!`);
+        }
+    }
+    
     fight(pokemon){
-
+        
     }
-
+    
 }
 
 // Finally, you will need a way to battle the Pokemon. The battle should take two trainers and the names of the Pokemon they wish to battle.

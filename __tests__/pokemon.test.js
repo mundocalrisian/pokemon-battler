@@ -576,20 +576,46 @@ describe.only('BATTLE', () => {
         const testCharmander = new Charmander(44, 17)
         // should be effect against - 
         const testBulbasaur = new Bulbasaur(45, 16)
-        const testPokemon2 = new Pokemon ("Test Pokemon 2", 100, 50)
         trainer1.catch(testCharmander)
         trainer2.catch(testBulbasaur)
         const testBattle = new Battle(trainer1, trainer2, testCharmander.name, testBulbasaur.name)
-        console.log(testBattle);
         expect(testBattle.trainer1).toBeInstanceOf(Trainer)
         expect(testBattle.trainer2).toBeInstanceOf(Trainer)
         expect(testBattle.pokemon1).toEqual("Charmander")
         expect(testBattle.pokemon2).toEqual("Bulbasaur")
     });
+    test('coinToss should randomly assign one of the pokemon to current player and current pokemon', () => {
+        const trainer1 = new Trainer('Trainer 1')
+        const trainer2 = new Trainer('Trainer 2')
+        const testBattle = new Battle(trainer1, trainer2)
+        testBattle.coinToss()
+        expect(logSpy).toHaveBeenCalledTimes(1)
+        expect(testBattle.currentPlayer.name).toContain("Trainer ")
+        expect(testBattle.currentPlayer.name).not.toEqual("")
+        expect(testBattle.currentPokemon).not.toEqual("")
+    });
+    test('switchTurn should alternate the player', () => {
+        const trainer1 = new Trainer('Trainer 1')
+        const trainer2 = new Trainer('Trainer 2')
+        const testBattle = new Battle(trainer1, trainer2)
+        testBattle.coinToss()
+        const currentPlayer = testBattle.currentPlayer.name
+        if (currentPlayer === "Trainer 1"){
+            testBattle.switchTurn()
+            expect(testBattle.currentPlayer.name).toEqual("Trainer 2")
+            expect(logSpy).toHaveBeenCalledTimes(2)
+            expect(logSpy).toHaveBeenCalledWith("Trainer 2's turn now!")
+        } else {
+            testBattle.switchTurn()
+            expect(testBattle.currentPlayer.name).toEqual("Trainer 1")
+            expect(logSpy).toHaveBeenCalledTimes(2)
+            expect(logSpy).toHaveBeenCalledWith("Trainer 1's turn now!")
+        }
+    });
     // should take 2 trainers and 2 pokemon
     describe('FIGHT', () => {
         test('should take the Pokemon whos turn it is as the attacker', () => {
-            
+
         });
         test('should deduct attackers attack damage from the defenders hit points', () => {
             
