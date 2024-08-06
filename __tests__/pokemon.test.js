@@ -569,7 +569,7 @@ describe('TRAINER', () => {
         });
     });
 });
-describe.only('BATTLE', () => {
+describe('BATTLE', () => {
     test('should take 2 trainers and 2 pokemon', () => {
         const trainer1 = new Trainer('Trainer 1')
         const trainer2 = new Trainer('Trainer 2')
@@ -613,9 +613,18 @@ describe.only('BATTLE', () => {
         }
     });
     // should take 2 trainers and 2 pokemon
-    describe('FIGHT', () => {
-        test('should take the Pokemon whos turn it is as the attacker', () => {
-
+    describe.only('FIGHT', () => {
+        test('should take the current Pokemon whos turn it is as the attacker and the other Pokemon as the defender', () => {
+            const trainer1 = new Trainer('Trainer 1')
+            const trainer2 = new Trainer('Trainer 2')
+            const testCharmander = new Charmander(44, 17)
+            const testBulbasaur = new Bulbasaur(45, 16)
+            const testBattle = new Battle(trainer1, trainer2, testCharmander.name, testBulbasaur.name)
+            testBattle.currentPlayer = trainer1 
+            testBattle.currentPokemon = testCharmander.name
+            testBattle.fight(testBattle.currentPokemon)
+            expect(testBattle.attacker).toEqual("Charmander")
+            expect(testBattle.defender).toEqual("Bulbasaur")
         });
         test('should deduct attackers attack damage from the defenders hit points', () => {
             

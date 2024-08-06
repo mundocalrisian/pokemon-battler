@@ -34,8 +34,17 @@ class Battle {
         }
     }
     
-    fight(pokemon){
-        
+    fight(pokemonToPlay){
+
+        this.attacker = pokemonToPlay
+        this.defender = ""
+        if (pokemonToPlay === this.pokemon1){
+            this.defender = this.pokemon2            
+        } else {
+            this.defender = this.pokemon1
+        }
+
+
     }
     
 }
