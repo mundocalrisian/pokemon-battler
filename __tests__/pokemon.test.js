@@ -569,12 +569,11 @@ describe('TRAINER', () => {
         });
     });
 });
-describe.only('BATTLE', () => {
+describe('BATTLE', () => {
     test('should take 2 trainers and 2 pokemon', () => {
         const trainer1 = new Trainer('Trainer 1')
         const trainer2 = new Trainer('Trainer 2')
         const testCharmander = new Charmander(44, 17)
-        // should be effect against - 
         const testBulbasaur = new Bulbasaur(45, 16)
         // trainer1.catch(testCharmander)
         // trainer2.catch(testBulbasaur)
@@ -612,7 +611,6 @@ describe.only('BATTLE', () => {
             expect(logSpy).toHaveBeenCalledWith("Trainer 1's turn now!")
         }
     });
-    // should take 2 trainers and 2 pokemon
     describe('FIGHT', () => {
         test('should take the current Pokemon whos turn it is as the attacker and the other Pokemon as the defender', () => {
             const trainer1 = new Trainer('Trainer 1')
@@ -628,20 +626,60 @@ describe.only('BATTLE', () => {
             expect(testBattle.defender.name).toEqual("Bulbasaur")
             expect(testBattle.defender).toBeInstanceOf(Bulbasaur)
         });
-        test('should deduct attackers attack damage from the defenders hit points', () => {
-            
+        test('should deduct the attackers attack damage from the defenders hit points', () => {
+            const trainer1 = new Trainer('Trainer 1')
+            const trainer2 = new Trainer('Trainer 2')
+            const testCharmander = new Charmander(44, 17)
+            // is not effective or weak against
+            const testEevee = new Eevee(55, 18)
+            const testBattle = new Battle(trainer1, trainer2, testCharmander, testEevee)
+            testBattle.currentPlayer = trainer1 
+            testBattle.currentPokemon = testCharmander
+            expect(testEevee.hitPoints).toEqual(55)
+            testBattle.fight(testCharmander)
+            expect(testEevee.hitPoints).toEqual(38)
+            expect(testCharmander.hitPoints).toEqual(44)
         });
-        test('should multiple damage by 0.75 if the defender is strong against the attacker', () => {
-            
+        test('should multiple damage by 0.75 if the defender is strong against the attacker and return an effectiveness message', () => {
+            const trainer1 = new Trainer('Trainer 1')
+            const trainer2 = new Trainer('Trainer 2')
+            const testSquirtle = new Squirtle(44, 16)
+            // is effective against
+            const testCharmander = new Charmander(44, 17)
+            const testBattle = new Battle(trainer1, trainer2, testCharmander, testSquirtle)
+            testBattle.currentPlayer = trainer1 
+            testBattle.currentPokemon = testCharmander
+            expect(testSquirtle.hitPoints).toEqual(44)
+            testBattle.fight(testCharmander)
+            expect(testSquirtle.hitPoints).not.toEqual(44)
+            expect(testSquirtle.hitPoints).toEqual(31.25)
+            expect(logSpy).toHaveBeenCalledWith("Charmander's Ember was not very effective against Squirtle")
         });
-        test('should multiple damage by 1.25 if the defender is weak against the attacker', () => {
-            
-        });
-        test('should return a message after each attack, depending on the defenders weakness or strength', () => {
-            
+        test('should multiple damage by 1.25 if the defender is weak against the attacker and return an effectiveness message', () => {
+            const trainer1 = new Trainer('Trainer 1')
+            const trainer2 = new Trainer('Trainer 2')
+            const testCharmander = new Charmander(44, 17)
+            // is effective against
+            const testBulbasaur = new Bulbasaur(45, 16)
+            const testBattle = new Battle(trainer1, trainer2, testCharmander, testBulbasaur)
+            testBattle.currentPlayer = trainer1 
+            testBattle.currentPokemon = testCharmander
+            testBattle.fight(testCharmander)
+            expect(testBulbasaur.hitPoints).not.toEqual(45)
+            expect(testBulbasaur.hitPoints).toEqual(23.75)
+            expect(logSpy).toHaveBeenCalledWith("Charmander's Ember was super effective against Bulbasaur!")
         });
         test('should return the attacker as the winner if the defending Pokemon faints', () => {
-            
+            const trainer1 = new Trainer('Trainer 1')
+            const trainer2 = new Trainer('Trainer 2')
+            const testCharmander = new Charmander(44, 17)
+            const testEevee = new Eevee(15, 18)
+            const testBattle = new Battle(trainer1, trainer2, testCharmander, testEevee)
+            testBattle.currentPlayer = trainer1 
+            testBattle.currentPokemon = testCharmander
+            expect(testEevee.hitPoints).toEqual(15)
+            testBattle.fight(testCharmander)
+            expect(logSpy).toHaveBeenCalledWith("Eevee fainted. Charmander is the winner!")
         });
     });
 });

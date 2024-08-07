@@ -22,7 +22,7 @@ class Pokemon {
     }
 
     hasFainted(){
-        return this.hitPoints === 0 ? true : false
+        return this.hitPoints <= 0 ? true : false
     }
 }
 

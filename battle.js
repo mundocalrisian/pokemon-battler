@@ -45,6 +45,26 @@ class Battle {
             this.defender = this.pokemon1
         }
 
+        let attackerDamage = this.attacker.useMove()
+        // console.log(this.defender, "----before");
+
+        if (this.defender.isEffectiveAgainst(this.attacker)) {
+            console.log(`${this.attacker.name}'s ${this.attacker.move} was not very effective against ${this.defender.name}`);
+            attackerDamage = attackerDamage * 0.75
+        }
+
+        if (this.defender.isWeakTo(this.attacker)){
+            console.log(`${this.attacker.name}'s ${this.attacker.move} was super effective against ${this.defender.name}!`);
+            attackerDamage = attackerDamage * 1.25
+        }
+
+        this.defender.takeDamage(attackerDamage)
+        // console.log(this.defender, "-----after");
+
+        if (this.defender.hasFainted()){
+            console.log(`${this.defender.name} fainted. ${this.attacker.name} is the winner!`);
+        }
+
         // attacker use Pokemon useMove() to return attack damage number
         // use pokemon takeDamage() on defender with damage number
         // use pokemon isEffectiveAgainst() to see if defender is string against the attacker. if so multiply damage number by 0.75
