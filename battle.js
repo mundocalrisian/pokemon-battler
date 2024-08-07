@@ -26,11 +26,11 @@ class Battle {
         if (this.currentPlayer.name === this.trainer1.name){
             this.currentPlayer = this.trainer2
             this.currentPokemon = this.pokemon2
-            console.log(`${this.currentPlayer.name}'s turn now!`);
+            console.log(`${this.currentPlayer.name}'s turn now...`);
         } else {
             this.currentPlayer = this.trainer1
             this.currentPokemon = this.pokemon1
-            console.log(`${this.currentPlayer.name}'s turn now!`);
+            console.log(`${this.currentPlayer.name}'s turn now...`);
         }
     }
     
@@ -45,6 +45,7 @@ class Battle {
             this.defender = this.pokemon1
         }
 
+        // retrieve the Pokemon's attack damage value
         let attackerDamage = this.attacker.useMove()
         // console.log(this.defender, "----before");
 
@@ -58,11 +59,15 @@ class Battle {
             attackerDamage = attackerDamage * 1.25
         }
 
+        console.log(`${this.defender.name} lost ${attackerDamage}HP`)
         this.defender.takeDamage(attackerDamage)
         // console.log(this.defender, "-----after");
 
         if (this.defender.hasFainted()){
-            console.log(`${this.defender.name} fainted. ${this.attacker.name} is the winner!`);
+            console.log(`${this.defender.name} fainted. ${this.currentPlayer.name}'s ${this.attacker.name} is the winner!`);
+        } else {
+            this.switchTurn()
+            this.fight(this.currentPokemon)
         }
 
         // attacker use Pokemon useMove() to return attack damage number
@@ -75,19 +80,5 @@ class Battle {
     }
     
 }
-
-// Finally, you will need a way to battle the Pokemon. The battle should take two trainers and the names of the Pokemon they wish to battle.
-
-// fight
-
-// This should take the Pokemon whose turn it is,
-// Attack the defending Pokemon (deducting attacker's attack damage from the defender's hit points)
-// End their turn
-// Should take each Pokemon's strengths and weaknesses into account
-// If a defender is strong against the attacking type, the attacking type's damage should be multiplied by 0.75.
-// If a defender is weak against the attacking type, the attacking type's damage should be multiplied by 1.25.
-// Each attack should be followed by an attack message
-// The message will vary depending on the defender's weakness/strength.
-// If the defending Pokemon faints (depletes all hit points), the attacker wins.
 
 module.exports = { Battle }
