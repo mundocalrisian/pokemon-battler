@@ -20,7 +20,7 @@ class FireType extends Pokemon {
 }
 
 class Charmander extends FireType {
-    constructor(hitPoints, attackDamage, move = "Ember"){
+    constructor(hitPoints = 44, attackDamage = 17, move = "ember"){
         super(hitPoints, attackDamage)
         this.name  = "Charmander"
         this.hitPoints = hitPoints
@@ -29,4 +29,14 @@ class Charmander extends FireType {
     }
 }
 
-module.exports = { FireType, Charmander }
+class Growlithe extends FireType {
+    constructor(hitPoints = 55, attackDamage = 15, move = "fire fang"){
+        super(hitPoints, attackDamage)
+        this.name  = "Growlithe"
+        this.hitPoints = hitPoints
+        this.attackDamage = attackDamage
+        this.move = move
+    }
+}
+
+module.exports = { FireType, Charmander, Growlithe }

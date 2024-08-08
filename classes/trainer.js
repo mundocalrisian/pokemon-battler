@@ -4,13 +4,13 @@ class Trainer {
 
     constructor (name) {
         this.name = name
-        this.belt = [...Array(6)].map(() => new Pokeball())
+        this.belt = [...Array(2)].map(() => new Pokeball())
         this.pokemonCount = 0
     }
 
     catch(pokemon) {
         
-        if (this.pokemonCount >= 6) {
+        if (this.pokemonCount >= 2) {
             console.log(`Sorry, you don't have any empty pokeballs!`);
         } else {
 

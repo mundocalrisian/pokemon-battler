@@ -20,7 +20,7 @@ class GrassType extends Pokemon {
 }
 
 class Bulbasaur extends GrassType {
-    constructor(hitPoints, attackDamage, move = "Vine Whip"){
+    constructor(hitPoints = 45, attackDamage = 16, move = "vine whip"){
         super(hitPoints, attackDamage)
         this.name  = "Bulbasaur"
         this.hitPoints = hitPoints
@@ -29,4 +29,14 @@ class Bulbasaur extends GrassType {
     }
 }
 
-module.exports = { GrassType, Bulbasaur }
+class Oddish extends GrassType {
+    constructor(hitPoints = 45, attackDamage = 16, move = "razor leaf"){
+        super(hitPoints, attackDamage)
+        this.name  = "Oddish"
+        this.hitPoints = hitPoints
+        this.attackDamage = attackDamage
+        this.move = move
+    }
+}
+
+module.exports = { GrassType, Bulbasaur, Oddish }
