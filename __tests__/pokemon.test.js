@@ -305,7 +305,7 @@ describe('INDIVIDUAL POKEMON', () => {
                 name: "Squirtle",
                 hitPoints: 44,
                 attackDamage: 16,
-                move: "bubble",
+                move: "aqua jet",
                 type: "water"
             }
             expect(testSquirtle).toMatchObject(expectedSquirtle)
@@ -579,8 +579,10 @@ describe('TRAINER', () => {
             const testTrainer = new Trainer('Test Trainer')
             const testCharmander = new Charmander()
             const testBulbasaur = new Bulbasaur()
+            const testSquirtle = new Squirtle()
             testTrainer.catch(testCharmander)
             testTrainer.catch(testBulbasaur)
+            testTrainer.catch(testSquirtle)
             const actual = testTrainer.isBeltFull()
             expect(actual).toEqual(true)
         });
@@ -703,7 +705,7 @@ describe('BATTLE', () => {
             testBattle.currentPokemon = testCharmander
             expect(testEevee.hitPoints).toEqual(15)
             testBattle.fight(testCharmander)
-            expect(logSpy).toHaveBeenCalledWith("Eevee fainted. Trainer 1's Charmander is the winner!")
+            expect(logSpy).toHaveBeenCalledWith(`\x1B[91;1m${testEevee.name} fainted. \x1B[92;1m${trainer1.name}'s ${testCharmander.name} is the winner!\x1B[m`)
         });
         test('should end the players turn if the defending Pokemon has not fainted and the attacking and defending roles should swap', () => {
             const trainer1 = new Trainer('Trainer 1')
@@ -730,7 +732,7 @@ describe('BATTLE', () => {
             expect(testBattle.winner).toBe(`${testEevee.name}`)
             expect(testBattle.loser).toBe(`${testCharmander.name}`)
             expect(logSpy).toHaveBeenCalledTimes(12)
-            expect(logSpy).toHaveBeenCalledWith(`${testCharmander.name} fainted. ${trainer2.name}'s ${testEevee.name} is the winner!`)
+            expect(logSpy).toHaveBeenCalledWith(`\x1B[91;1m${testCharmander.name} fainted. \x1B[92;1m${trainer2.name}'s ${testEevee.name} is the winner!\x1B[m`)
         });
     });
 });

@@ -39,4 +39,30 @@ class Oddish extends GrassType {
     }
 }
 
-module.exports = { GrassType, Bulbasaur, Oddish }
+class Hoppip extends GrassType {
+    constructor(hitPoints = 35, attackDamage = 16, move = "mega drain"){
+        super(hitPoints, attackDamage)
+        this.name  = "Hoppip"
+        this.hitPoints = hitPoints
+        this.attackDamage = attackDamage
+        this.move = move
+    }
+}
+
+class Turtwig extends GrassType {
+    constructor(hitPoints = 55, attackDamage = 15, move = "grassy glide"){
+        super(hitPoints, attackDamage)
+        this.name  = "Turtwig"
+        this.hitPoints = hitPoints
+        this.attackDamage = attackDamage
+        this.move = move
+    }
+}
+
+// Additional - 
+// Exeggcute - 60, 13, bullet seed
+// Tangela - 65, 14, mega drain
+// Treecko - 40, 15, leafage
+// Lotad - 40, 16, trailblaze
+
+module.exports = { GrassType, Bulbasaur, Oddish, Hoppip, Turtwig }

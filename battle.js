@@ -66,7 +66,9 @@ class Battle {
         // console.log(this.defender, "-----after");
 
         if (this.defender.hasFainted()){
+            console.log("");
             console.log(`\x1B[91;1m${this.defender.name} fainted. \x1B[92;1m${this.currentPlayer.name}'s ${this.attacker.name} is the winner!\x1B[m`);
+            console.log("");
             this.winner = this.attacker.name
             this.loser = this.defender.name
         } else {

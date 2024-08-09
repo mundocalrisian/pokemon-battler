@@ -39,4 +39,29 @@ class Pidgey extends NormalType {
     }
 }
 
-module.exports = { NormalType, Eevee, Pidgey }
+class Rattata extends NormalType {
+    constructor(hitPoints = 30, attackDamage = 15, move = "quick attack"){
+        super(hitPoints, attackDamage)
+        this.name  = "Rattata"
+        this.hitPoints = hitPoints
+        this.attackDamage = attackDamage
+        this.move = move
+    }
+}
+
+class Zigzagoon extends NormalType {
+    constructor(hitPoints = 38, attackDamage = 18, move = "covet"){
+        super(hitPoints, attackDamage)
+        this.name  = "Zigzagoon"
+        this.hitPoints = hitPoints
+        this.attackDamage = attackDamage
+        this.move = move
+    }
+}
+
+// Additional - 
+// Slakoth - 60, 14, scratch
+// Bidoof - 59, 13, rollout
+
+
+module.exports = { NormalType, Eevee, Pidgey, Rattata, Zigzagoon }

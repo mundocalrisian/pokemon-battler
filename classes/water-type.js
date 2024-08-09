@@ -20,7 +20,7 @@ class WaterType extends Pokemon {
 }
 
 class Squirtle extends WaterType {
-    constructor(hitPoints = 44, attackDamage = 16, move = "bubble"){
+    constructor(hitPoints = 44, attackDamage = 16, move = "aqua jet"){
         super(hitPoints, attackDamage)
         this.name  = "Squirtle"
         this.hitPoints = hitPoints
@@ -38,4 +38,29 @@ class Psyduck extends WaterType {
     }
 }
 
-module.exports = { WaterType, Squirtle, Psyduck }
+class Poliwag extends WaterType {
+    constructor(hitPoints = 40, attackDamage = 18, move = "bubble beam"){
+        super(hitPoints, attackDamage)
+        this.name  = "Poliwag"
+        this.hitPoints = hitPoints
+        this.attackDamage = attackDamage
+        this.move = move
+    }
+}
+
+class Krabby extends WaterType {
+    constructor(hitPoints = 30, attackDamage = 19, move = "water pulse"){
+        super(hitPoints, attackDamage)
+        this.name  = "Krabby"
+        this.hitPoints = hitPoints
+        this.attackDamage = attackDamage
+        this.move = move
+    }
+}
+
+// Additional - 
+// Shellder - 30, 17, razor shell
+// Piplup - 53, 16, chilling water
+
+
+module.exports = { WaterType, Squirtle, Psyduck, Poliwag, Krabby }

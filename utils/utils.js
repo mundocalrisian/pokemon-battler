@@ -1,7 +1,7 @@
-const { Eevee, Pidgey } = require('../classes/normal-type');
-const { Bulbasaur, Oddish } = require('../classes/grass-type');
-const { Squirtle, Psyduck } = require('../classes/water-type');
-const { Charmander, Growlithe } = require('../classes/fire-type');
+const { Eevee, Pidgey, Rattata, Zigzagoon } = require('../classes/normal-type');
+const { Bulbasaur, Oddish, Hoppip, Turtwig } = require('../classes/grass-type');
+const { Squirtle, Psyduck, Poliwag, Krabby } = require('../classes/water-type');
+const { Charmander, Growlithe, Vulpix, Torchic } = require('../classes/fire-type');
 
 function getRandomPokemonArray() {
 
@@ -31,7 +31,15 @@ function getRandomPokemonArray() {
         new Growlithe, 
         new Psyduck,
         new Oddish, 
-        new Pidgey
+        new Pidgey, 
+        new Rattata, 
+        new Zigzagoon,
+        new Hoppip, 
+        new Turtwig, 
+        new Poliwag, 
+        new Krabby, 
+        new Vulpix, 
+        new Torchic
     ]
 
     // shuffle(pokemonChoices)

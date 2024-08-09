@@ -1,16 +1,19 @@
 const { Pokeball } = require('./pokeball')
 
+const maxPokeballs = 3
+
 class Trainer {
+
 
     constructor (name) {
         this.name = name
-        this.belt = [...Array(2)].map(() => new Pokeball())
+        this.belt = [...Array(maxPokeballs)].map(() => new Pokeball())
         this.pokemonCount = 0
     }
 
     catch(pokemon) {
         
-        if (this.pokemonCount >= 2) {
+        if (this.pokemonCount >= maxPokeballs) {
             console.log(`Sorry, you don't have any empty pokeballs!`);
         } else {
             for (const pokeball of this.belt) {
