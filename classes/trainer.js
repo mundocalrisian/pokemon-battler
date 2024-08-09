@@ -29,13 +29,27 @@ class Trainer {
 
         let isPokemonStored = false
         for (const pokeball of this.belt){
-            if (pokeball.storedPokemon.name === pokemon.name){
+            if (pokeball.storedPokemon.name === pokemon){
                 pokeball.throw
                 isPokemonStored = true
+                return pokeball.storedPokemon
                 break;
             }
         }
         if (!isPokemonStored) console.log("Sorry, you don't have this pokemon in your belt");
+    }
+
+    isBeltFull () {
+
+        const currentStoredPokemon = []
+        const beltLength = this.belt.length
+        this.belt.forEach((pokeball) => {
+            if (pokeball.storedPokemon.name){
+                currentStoredPokemon.push(pokeball.storedPokemon.name)
+            }
+        })
+
+        return beltLength === currentStoredPokemon.length
     }
 
 }

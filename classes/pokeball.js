@@ -17,6 +17,7 @@ class Pokeball {
     get throw(){
         if (this.storedPokemon.name) {
             console.log (`GO ${this.storedPokemon.name}!`)
+            return this.storedPokemon
         } else {
             console.log('This pokeball is empty! Why not try and catch another?')
         }
