@@ -13,18 +13,22 @@ class Battle {
 
     coinToss(){
         if (Math.random() <=0.5){
+            console.log("");
             console.log(`${this.trainer1.name} won the coin toss and will go first!`);
+            console.log("");
             this.currentPlayer = this.trainer1
             this.currentPokemon = this.pokemon1
         } else {
+            console.log("");
             console.log(`${this.trainer2.name} won the coin toss and will go first!`);
+            console.log("");
             this.currentPlayer = this.trainer2
             this.currentPokemon = this.pokemon2
         }
     }
 
     switchTurn(){
-        // console.log(this.currentPlayer.name, "-----player");
+
         if (this.currentPlayer.name === this.trainer1.name){
             this.currentPlayer = this.trainer2
             this.currentPokemon = this.pokemon2
@@ -40,16 +44,14 @@ class Battle {
 
         this.attacker = pokemonToPlay
         this.defender = ""
-        // assign the defender
+
         if (pokemonToPlay === this.pokemon1){
             this.defender = this.pokemon2            
         } else {
             this.defender = this.pokemon1
         }
 
-        // retrieve the Pokemon's attack damage value
         let attackerDamage = this.attacker.useMove()
-        // console.log(this.defender, "----before");
 
         if (this.defender.isEffectiveAgainst(this.attacker)) {
             console.log(`${this.attacker.name}'s ${this.attacker.move} was not very effective against ${this.defender.name}`);
@@ -63,7 +65,6 @@ class Battle {
 
         console.log(`${this.defender.name} lost ${attackerDamage}HP`)
         this.defender.takeDamage(attackerDamage)
-        // console.log(this.defender, "-----after");
 
         if (this.defender.hasFainted()){
             console.log("");
@@ -75,13 +76,6 @@ class Battle {
             this.switchTurn()
             this.fight(this.currentPokemon)
         }
-
-        // attacker use Pokemon useMove() to return attack damage number
-        // use pokemon takeDamage() on defender with damage number
-        // use pokemon isEffectiveAgainst() to see if defender is string against the attacker. if so multiply damage number by 0.75
-        // use pokemon isWeakTo() to see if defender is weak against attacker. if so then multiply damage number by 1.25
-        // log .....'s move was effective/not effective against ....
-        // if defender's faints then attacker wins
 
     }
     

@@ -26,20 +26,6 @@ function playGame () {
     let secondBattle = ""
     let thirdBattle = ""
 
-    // console.log("");
-    // console.log(`\x1B[95;1m--------------------------------------------------------------\x1B[m`);
-    // console.log(`\x1B[3m`);
-    // console.log(`\x1B[1mWelcome to Mundo's Pokemon Battler!`);
-    // console.log("\x1B[0m");
-    // console.log(`You have 4 opportunities to catch 3 Pokemon so chose wisely`);
-    // console.log(`After that you will have the chance to battle them`);
-    // console.log(`Winner is the best over 3 rounds`);
-    // console.log(`\x1B[3m`);
-    // console.log(`\x1B[1mGood luck!`);
-    // console.log("");
-    // console.log(`\x1B[95;1m--------------------------------------------------------------\x1B[m`);
-    // console.log("");
-
     const playerNames = [
         {   type: 'input',
             message: "What's your name?",
@@ -283,7 +269,6 @@ function playGame () {
     ]
     
     inquirer.prompt(playerNames)
-        // After player names input
         .then((playerNamesAnswers) => {
 
             player1 = new Trainer(`${playerNamesAnswers.trainer1}`)
@@ -291,7 +276,6 @@ function playGame () {
 
             return inquirer.prompt(p1FirstCatch)
         })
-        // After player 1's first pokemon encounter
         .then((p1FirstCatchPokemon) => {
 
             if (p1FirstCatchPokemon.player1Pokemon){
@@ -301,7 +285,6 @@ function playGame () {
 
             return inquirer.prompt(p2FirstCatch)
         })
-        // After player 2's first pokemon encounter
         .then((p2FirstCatchPokemon) => {
 
             if (p2FirstCatchPokemon.player2Pokemon){
@@ -311,7 +294,6 @@ function playGame () {
 
             return inquirer.prompt(p1SecondCatch)
         })
-        // After player 1's second pokemon encounter
         .then((p1SecondCatchPokemon) => {
 
             if (p1SecondCatchPokemon.player1Pokemon2){
@@ -321,7 +303,6 @@ function playGame () {
             
             return inquirer.prompt(p2SecondCatch)
         })
-        // After player 2's second pokemon encounter
         .then((p2SecondCatchPokemon) => {
 
             if (p2SecondCatchPokemon.player2Pokemon2){
@@ -330,7 +311,6 @@ function playGame () {
             }
             return inquirer.prompt(p1ThirdCatch)
         })
-        // After player 1's third
         .then((p1ThirdCatchPokemon) => {
             
             if (p1ThirdCatchPokemon.player1Pokemon3){
@@ -340,16 +320,12 @@ function playGame () {
             
             return inquirer.prompt(p2ThirdCatch)
         })
-        // After player 2's third 
         .then((p2ThirdCatchPokemon) => {
 
             if (p2ThirdCatchPokemon.player2Pokemon3){
                 player2.catch(p2ThirdCatchPokemon.player2Pokemon3)
                 p2PokemonAvailable.push(p2ThirdCatchPokemon.player2Pokemon3.name)
             }
-
-            console.log(p1PokemonAvailable, "-----p1 available");
-            console.log(p2PokemonAvailable, "-----p2 available");
 
             if (!player1.isBeltFull() && player2.isBeltFull()){
                 return inquirer.prompt(p1ForthCatch)
@@ -364,7 +340,6 @@ function playGame () {
                 return inquirer.prompt(commenceBattle1)
             }
         })
-        // If there is a player 1 or player 2 fourth pokemon encounter, deal with this, otherwise skip to the next step
         .then((forthCatchOutcome) => {
 
             if (forthCatchOutcome.player1Pokemon4) {
@@ -375,21 +350,14 @@ function playGame () {
                 player2.catch(forthCatchOutcome.player2Pokemon4)
                 p2PokemonAvailable.push(forthCatchOutcome.player2Pokemon4.name)
             }
-            // This runs if a fourth catch was done - 
             if (!forthCatchOutcome.player1BattleChoice1 || !forthCatchOutcome.player2BattleChoice1) {
                 return inquirer.prompt(commenceBattle1)
             }
-
-            // This runs if come from battle commence so needs to skip to next then block
             if (forthCatchOutcome.player1BattleChoice1 || forthCatchOutcome.player2BattleChoice1) {
                 return forthCatchOutcome
             }
         })
         .then((battle1Choices) => {
-
-            // use battle choices to getPokemon then create new Battle
-            // console.log(player1.belt, "-----player1 belt");
-            // console.log(player2.belt, "-----player2 belt");
 
             const pokemon1 = player1.getPokemon(battle1Choices.player1BattleChoice1)
             const pokemon2 = player2.getPokemon(battle1Choices.player2BattleChoice1)
@@ -401,21 +369,11 @@ function playGame () {
             if (p1PokemonAvailable.includes(firstBattle.winner)) player1WinCount ++
             if (p2PokemonAvailable.includes(firstBattle.winner)) player2WinCount ++
 
-            // console.log(player1WinCount, "-----p1 wins");
-            // console.log(player2WinCount, "-----p2 wins");
-
-            // console.log(p1PokemonAvailable, "-----before");
-            // console.log(p2PokemonAvailable, "-----before");
-
-            // remove battled pokemon from available pokemon
             // removeAvailablePokemon(p1PokemonAvailable, firstBattle.loser, firstBattle.winner)
             // removeAvailablePokemon(p2PokemonAvailable, firstBattle.loser, firstBattle.winner)
 
             p1PokemonAvailable = p1PokemonAvailable.filter((pokemon) => (pokemon !== firstBattle.winner) && (pokemon !== firstBattle.loser))
             p2PokemonAvailable = p2PokemonAvailable.filter((pokemon) => (pokemon !== firstBattle.winner) && (pokemon !== firstBattle.loser))
-
-            // console.log(p1PokemonAvailable, "-----after");
-            // console.log(p2PokemonAvailable, "-----after");
 
             console.log(`\x1B[93;1mThe scores are... \x1B[97;1m${player1.name} - \x1B[93;1m${player1WinCount}\x1B[97;1m || ${player2.name} - \x1B[93;1m${player2WinCount} \x1B[m`)
             console.log("");
@@ -449,17 +407,14 @@ function playGame () {
             p1PokemonAvailable = p1PokemonAvailable.filter((pokemon) => (pokemon !== secondBattle.winner) && (pokemon !== secondBattle.loser))
             p2PokemonAvailable = p2PokemonAvailable.filter((pokemon) => (pokemon !== secondBattle.winner) && (pokemon !== secondBattle.loser))
 
-            // console.log(p1PokemonAvailable, "-----after");
-            // console.log(p2PokemonAvailable, "-----after");
-
             console.log(`\x1B[93;1mThe scores after two rounds are... \x1B[97;1m${player1.name} - \x1B[93;1m${player1WinCount}\x1B[97;1m || ${player2.name} - \x1B[93;1m${player2WinCount} \x1B[m`)
             console.log("");
 
-            // Go a third time
             return inquirer.prompt(commenceBattle3)
+
         })
         .then((battle3Choices) => {
-            // console.log(battle3Choices, "-----battle 3 choices");
+
             if (battle3Choices.player1BattleChoice3 === "No thanks" || battle3Choices.player2BattleChoice3 === "No thanks" ) {
                 console.log("");
                 console.log(`\x1B[93;1mFinal scores... \x1B[97;1m${player1.name} - \x1B[93;1m${player1WinCount}\x1B[97;1m || ${player2.name} - \x1B[93;1m${player2WinCount} \x1B[m`)
@@ -498,17 +453,18 @@ function playGame () {
 
         })
         .then((playAgainResult) => {
-            console.log(playAgainResult);
 
             if (playAgainResult.playAgain === 'Of course!') {
-                // return inquirer.prompt(playerNames)
+
                 console.log("");
                 console.log(`\x1B[36;1m--------------------------------------------------------------\x1B[m`);
                 console.log("");
+
                 playGame()
+
             } else {
                 console.log("");
-                console.log("\x1B[36;1mThanks for playing!!");
+                console.log("\x1B[1mThanks for playing!!");
                 console.log("");
                 console.log(`\x1B[36;1m--------------------------------------------------------------\x1B[m`);
                 console.log("");
