@@ -39,4 +39,19 @@ function getRandomPokemonArray() {
     return pokemonChoices
 }
 
-module.exports = {getRandomPokemonArray}
+function removeAvailablePokemon(availablePokemon, pokemon1ToRemove, pokemon2ToRemove){
+
+    let index = availablePokemon.indexOf(pokemon1ToRemove)
+
+    if (index > -1) {
+        availablePokemon.splice(index, 1)
+    } else {
+        index = availablePokemon.indexOf(pokemon2ToRemove)
+        availablePokemon.splice(index, 1)
+    }
+
+    return availablePokemon
+
+}
+
+module.exports = {getRandomPokemonArray, removeAvailablePokemon}

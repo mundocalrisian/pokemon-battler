@@ -7,6 +7,8 @@ class Battle {
         this.pokemon2 = pokemon2
         this.currentPlayer = ""
         this.currentPokemon = ""
+        this.winner = ""
+        this.loser = ""
     }
 
     coinToss(){
@@ -64,7 +66,9 @@ class Battle {
         // console.log(this.defender, "-----after");
 
         if (this.defender.hasFainted()){
-            console.log(`${this.defender.name} fainted. ${this.currentPlayer.name}'s ${this.attacker.name} is the winner!`);
+            console.log(`\x1B[91;1m${this.defender.name} fainted. \x1B[92;1m${this.currentPlayer.name}'s ${this.attacker.name} is the winner!\x1B[m`);
+            this.winner = this.attacker.name
+            this.loser = this.defender.name
         } else {
             this.switchTurn()
             this.fight(this.currentPokemon)

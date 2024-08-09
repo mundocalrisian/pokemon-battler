@@ -13,7 +13,6 @@ class Trainer {
         if (this.pokemonCount >= 2) {
             console.log(`Sorry, you don't have any empty pokeballs!`);
         } else {
-
             for (const pokeball of this.belt) {
                 if (!pokeball.storedPokemon.name){
                     pokeball.throw = pokemon
@@ -53,12 +52,5 @@ class Trainer {
     }
 
 }
-
-
-// getPokemon
-
-// Takes the name of a Pokemon.
-// Will search for the the Pokemon with that name in the belt.
-// Use the Pokeball's throw to return that specific Pokemon.
 
 module.exports = { Trainer }
