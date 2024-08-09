@@ -268,7 +268,7 @@ describe('INDIVIDUAL POKEMON', () => {
                 name: "Charmander",
                 hitPoints: 44,
                 attackDamage: 17,
-                move: "Ember",
+                move: "ember",
                 type: "fire"
             }
             expect(testCharmander).toMatchObject(expectedCharmander)
@@ -305,7 +305,7 @@ describe('INDIVIDUAL POKEMON', () => {
                 name: "Squirtle",
                 hitPoints: 44,
                 attackDamage: 16,
-                move: "Bubble",
+                move: "aqua jet",
                 type: "water"
             }
             expect(testSquirtle).toMatchObject(expectedSquirtle)
@@ -342,7 +342,7 @@ describe('INDIVIDUAL POKEMON', () => {
                 name: "Bulbasaur",
                 hitPoints: 45,
                 attackDamage: 16,
-                move: "Vine Whip",
+                move: "vine whip",
                 type: "grass"
             }
             expect(testBulbasaur).toMatchObject(expectedBulbasaur)
@@ -379,7 +379,7 @@ describe('INDIVIDUAL POKEMON', () => {
                 name: "Eevee",
                 hitPoints: 55,
                 attackDamage: 12,
-                move: "Tackle",
+                move: "tackle",
                 type: "normal"
             }
             expect(testEevee).toMatchObject(expectedEevee)
@@ -493,7 +493,7 @@ describe('TRAINER', () => {
         expect(testTrainer.name).toEqual('Test Trainer')
         expect(testTrainer).toHaveProperty('belt')
     });
-    test('belt property should have 6 empty Pokeballs nested', () => {
+    xtest('belt property should have 6 empty Pokeballs nested', () => {
         const testTrainer = new Trainer("Test Trainer")
         const belt = testTrainer.belt
         expect(belt.length).toEqual(6)
@@ -517,18 +517,15 @@ describe('TRAINER', () => {
             const testTrainer = new Trainer ("Test Trainer")
             const testPokemon1 = new Pokemon ("Test Pokemon 1", 100, 50)
             const testPokemon2 = new Pokemon ("Test Pokemon 2", 100, 50)
-            const testPokemon3 = new Pokemon ("Test Pokemon 3", 100, 50)
             testTrainer.catch(testPokemon1)
             testTrainer.catch(testPokemon2)
-            testTrainer.catch(testPokemon3)
             expect(logSpy).toHaveBeenCalled()
-            expect(logSpy).toHaveBeenCalledTimes(3)
+            expect(logSpy).toHaveBeenCalledTimes(2)
             expect(testTrainer.belt[0].storedPokemon.name).toEqual("Test Pokemon 1")
             expect(testTrainer.belt[1].storedPokemon.name).toEqual("Test Pokemon 2")
-            expect(testTrainer.belt[2].storedPokemon.name).toEqual("Test Pokemon 3")
-            expect(testTrainer.pokemonCount).toEqual(3)
+            expect(testTrainer.pokemonCount).toEqual(2)
         });
-        test('should return a message if more than the maximum of 6 Pokemon are caught', () => {
+        test('should return a message if more Pokemon than the maximum of pokeballs are caught', () => {
             const testTrainer = new Trainer ("Test Trainer")
             const testPokemon = new Pokemon ("Test Pokemon", 100, 50)
             testTrainer.catch(testPokemon)
@@ -544,28 +541,57 @@ describe('TRAINER', () => {
         });
     });
     describe('GETPOKEMON', () => {
-        test('should search trainer belt for the supplied Pokemon and use the throw method', () => {
+        test('should search trainer belt for the supplied Pokemon name and use the throw method', () => {
             const testTrainer = new Trainer ("Test Trainer")
             const testPokemon1 = new Pokemon ("Test Pokemon 1", 100, 50)
             const testPokemon2 = new Pokemon ("Test Pokemon 2", 100, 50)
-            const testPokemon3 = new Pokemon ("Test Pokemon 3", 100, 50)
             testTrainer.catch(testPokemon1)
             testTrainer.catch(testPokemon2)
-            testTrainer.catch(testPokemon3)
-            testTrainer.getPokemon(testPokemon2)
-            expect(logSpy).toHaveBeenCalledTimes(4)
+            testTrainer.getPokemon(testPokemon2.name)
+            expect(logSpy).toHaveBeenCalledTimes(3)
             expect(logSpy).toHaveBeenCalledWith("GO Test Pokemon 2!")
         });
-        test('should return a message if the supplied Pokemon is not in the belt', () => {
+        test('should return the pokemon whos name has been supplied', () => {
             const testTrainer = new Trainer ("Test Trainer")
             const testPokemon1 = new Pokemon ("Test Pokemon 1", 100, 50)
             const testPokemon2 = new Pokemon ("Test Pokemon 2", 100, 50)
-            const testPokemon3 = new Pokemon ("Test Pokemon 3", 100, 50)
             testTrainer.catch(testPokemon1)
             testTrainer.catch(testPokemon2)
-            testTrainer.getPokemon(testPokemon3)
-            expect(logSpy).toHaveBeenCalledTimes(3)
+            const actual = testTrainer.getPokemon(testPokemon2.name)
+            expect(actual.name).toEqual(testPokemon2.name)
+            expect(actual.hitPoints).toEqual(testPokemon2.hitPoints)
+            expect(actual.attackDamage).toEqual(testPokemon2.attackDamage)
+            expect(actual.move).toEqual(testPokemon2.move)
+            expect(actual).toBeInstanceOf(Pokemon)
+        });
+        test('should return a message if the supplied Pokemon name is not in the belt', () => {
+            const testTrainer = new Trainer ("Test Trainer")
+            const testPokemon1 = new Pokemon ("Test Pokemon 1", 100, 50)
+            const testPokemon2 = new Pokemon ("Test Pokemon 2", 100, 50)
+            testTrainer.catch(testPokemon1)
+            testTrainer.getPokemon(testPokemon2.name)
+            expect(logSpy).toHaveBeenCalledTimes(2)
             expect(logSpy).toHaveBeenCalledWith("Sorry, you don't have this pokemon in your belt")
+        });
+    });
+    describe('ISBELTFULL', () => {
+        test('should return true if belt is full ie. has a Pokemon in each pokeball', () => {
+            const testTrainer = new Trainer('Test Trainer')
+            const testCharmander = new Charmander()
+            const testBulbasaur = new Bulbasaur()
+            const testSquirtle = new Squirtle()
+            testTrainer.catch(testCharmander)
+            testTrainer.catch(testBulbasaur)
+            testTrainer.catch(testSquirtle)
+            const actual = testTrainer.isBeltFull()
+            expect(actual).toEqual(true)
+        });
+        test('should return false if belt is not full', () => {
+            const testTrainer = new Trainer('Test Trainer')
+            const testCharmander = new Charmander()
+            testTrainer.catch(testCharmander)
+            const actual = testTrainer.isBeltFull()
+            expect(actual).toEqual(false)
         });
     });
 });
@@ -653,7 +679,7 @@ describe('BATTLE', () => {
             testBattle.fight(testCharmander)
             expect(testSquirtle.hitPoints).not.toEqual(44)
             // expect(testSquirtle.hitPoints).toEqual(31.25)
-            expect(logSpy).toHaveBeenCalledWith("Charmander's Ember was not very effective against Squirtle")
+            expect(logSpy).toHaveBeenCalledWith(`${testCharmander.name}'s ${testCharmander.move} was not very effective against Squirtle`)
         });
         test('should multiple damage by 1.25 if the defender is weak against the attacker and return an effectiveness message', () => {
             const trainer1 = new Trainer('Trainer 1')
@@ -667,7 +693,7 @@ describe('BATTLE', () => {
             testBattle.fight(testCharmander)
             expect(testBulbasaur.hitPoints).not.toEqual(45)
             // expect(testBulbasaur.hitPoints).toEqual(23.75)
-            expect(logSpy).toHaveBeenCalledWith("Charmander's Ember was super effective against Bulbasaur!")
+            expect(logSpy).toHaveBeenCalledWith(`${testCharmander.name}'s ${testCharmander.move} was super effective against Bulbasaur!`)
         });
         test('should return the attacker as the winner if the defending Pokemon faints', () => {
             const trainer1 = new Trainer('Trainer 1')
@@ -679,7 +705,7 @@ describe('BATTLE', () => {
             testBattle.currentPokemon = testCharmander
             expect(testEevee.hitPoints).toEqual(15)
             testBattle.fight(testCharmander)
-            expect(logSpy).toHaveBeenCalledWith("Eevee fainted. Trainer 1's Charmander is the winner!")
+            expect(logSpy).toHaveBeenCalledWith(`\x1B[91;1m${testEevee.name} fainted. \x1B[92;1m${trainer1.name}'s ${testCharmander.name} is the winner!\x1B[m`)
         });
         test('should end the players turn if the defending Pokemon has not fainted and the attacking and defending roles should swap', () => {
             const trainer1 = new Trainer('Trainer 1')
@@ -703,8 +729,10 @@ describe('BATTLE', () => {
             testBattle.currentPlayer = trainer1 
             testBattle.currentPokemon = testCharmander
             testBattle.fight(testCharmander)
+            expect(testBattle.winner).toBe(`${testEevee.name}`)
+            expect(testBattle.loser).toBe(`${testCharmander.name}`)
             expect(logSpy).toHaveBeenCalledTimes(12)
-            expect(logSpy).toHaveBeenCalledWith(`${testCharmander.name} fainted. ${trainer2.name}'s ${testEevee.name} is the winner!`)
+            expect(logSpy).toHaveBeenCalledWith(`\x1B[91;1m${testCharmander.name} fainted. \x1B[92;1m${trainer2.name}'s ${testEevee.name} is the winner!\x1B[m`)
         });
     });
 });

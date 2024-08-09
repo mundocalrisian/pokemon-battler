@@ -1,19 +1,21 @@
 const { Pokeball } = require('./pokeball')
 
+const maxPokeballs = 3
+
 class Trainer {
+
 
     constructor (name) {
         this.name = name
-        this.belt = [...Array(6)].map(() => new Pokeball())
+        this.belt = [...Array(maxPokeballs)].map(() => new Pokeball())
         this.pokemonCount = 0
     }
 
     catch(pokemon) {
         
-        if (this.pokemonCount >= 6) {
+        if (this.pokemonCount >= maxPokeballs) {
             console.log(`Sorry, you don't have any empty pokeballs!`);
         } else {
-
             for (const pokeball of this.belt) {
                 if (!pokeball.storedPokemon.name){
                     pokeball.throw = pokemon
@@ -29,22 +31,29 @@ class Trainer {
 
         let isPokemonStored = false
         for (const pokeball of this.belt){
-            if (pokeball.storedPokemon.name === pokemon.name){
+            if (pokeball.storedPokemon.name === pokemon){
                 pokeball.throw
                 isPokemonStored = true
+                return pokeball.storedPokemon
                 break;
             }
         }
         if (!isPokemonStored) console.log("Sorry, you don't have this pokemon in your belt");
     }
 
+    isBeltFull () {
+
+        const currentStoredPokemon = []
+        const beltLength = this.belt.length
+        this.belt.forEach((pokeball) => {
+            if (pokeball.storedPokemon.name){
+                currentStoredPokemon.push(pokeball.storedPokemon.name)
+            }
+        })
+
+        return beltLength === currentStoredPokemon.length
+    }
+
 }
-
-
-// getPokemon
-
-// Takes the name of a Pokemon.
-// Will search for the the Pokemon with that name in the belt.
-// Use the Pokeball's throw to return that specific Pokemon.
 
 module.exports = { Trainer }
