@@ -99,9 +99,9 @@ Follow the on screen prompts and enjoy!
 
 ## Technologies Used
 
-- [NodeJS](https://nodejs.org/en)
-- [Inquirer](https://www.npmjs.com/package/inquirer)
-- [Jest](https://jestjs.io/)
+- [NodeJS](https://nodejs.org/en) - Version 20.10.0
+- [Inquirer](https://www.npmjs.com/package/inquirer) - Version 8
+- [Jest](https://jestjs.io/) - Version 29.7.0
 
 Pokemon art generated at https://www.text-image.com/convert/
 
