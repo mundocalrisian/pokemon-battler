@@ -1,15 +1,14 @@
 {
-  "name": "fun-pokemon-battler",
+  "name": "mundos-pokemon-battler",
   "version": "1.0.0",
-  "description": "For this sprint, head to Northcoder's L2C app:",
-  "main": "pokemon.js",
+  "description": "Mundo's Pokemon Battler",
+  "main": "game.js",
   "scripts": {
     "test": "jest"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@inquirer/prompts": "^5.3.8",
     "inquirer": "^8.2.6",
     "jest": "^29.7.0"
   }
