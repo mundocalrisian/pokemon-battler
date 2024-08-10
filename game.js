@@ -1,7 +1,7 @@
 const inquirer = require('inquirer');
 const { getRandomPokemonArray, removeAvailablePokemon } = require('./utils/utils');
 const { Trainer } = require('./classes/trainer');
-const { Battle } = require('./battle');
+const { Battle } = require('./classes/battle');
 
 function playGame () {
 
