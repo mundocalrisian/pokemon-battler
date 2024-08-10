@@ -375,8 +375,7 @@ function playGame () {
             p1PokemonAvailable = p1PokemonAvailable.filter((pokemon) => (pokemon !== firstBattle.winner) && (pokemon !== firstBattle.loser))
             p2PokemonAvailable = p2PokemonAvailable.filter((pokemon) => (pokemon !== firstBattle.winner) && (pokemon !== firstBattle.loser))
 
-            console.log(`\x1B[93;1mThe scores are... \x1B[97;1m${player1.name} - \x1B[93;1m${player1WinCount}\x1B[97;1m || ${player2.name} - \x1B[93;1m${player2WinCount} \x1B[m`)
-            console.log("");
+            console.log(`\x1B[93;1mThe scores are... \x1B[97;1m${player1.name} - \x1B[93;1m${player1WinCount}\x1B[97;1m || ${player2.name} - \x1B[93;1m${player2WinCount} \x1B[m\n`)
             
             return inquirer.prompt(commenceBattle2)
 
@@ -384,13 +383,9 @@ function playGame () {
         .then((battle2Choices) => {
 
             if (battle2Choices.player1BattleChoice2 === "No thanks" || battle2Choices.player2BattleChoice2 === "No thanks" ) {
-                console.log("");
-                console.log(`\x1B[93;1mFinal scores... \x1B[97;1m${player1.name} - \x1B[93;1m${player1WinCount}\x1B[97;1m || ${player2.name} - \x1B[93;1m${player2WinCount} \x1B[m`)
-                console.log("");
-                console.log("\x1B[95;1mThanks for playing!!");
-                console.log("");
-                console.log(`\x1B[36;1m--------------------------------------------------------------\x1B[m`);
-                console.log("");
+                console.log(`\n\x1B[93;1mFinal scores... \x1B[97;1m${player1.name} - \x1B[93;1m${player1WinCount}\x1B[97;1m || ${player2.name} - \x1B[93;1m${player2WinCount} \x1B[m\n`)
+                console.log("\x1B[95;1mThanks for playing!!\n");
+                console.log(`\x1B[36;1m-----------------------------------------------------------------------\x1B[m\n`);
                 process.exit();
             }
 
@@ -407,8 +402,7 @@ function playGame () {
             p1PokemonAvailable = p1PokemonAvailable.filter((pokemon) => (pokemon !== secondBattle.winner) && (pokemon !== secondBattle.loser))
             p2PokemonAvailable = p2PokemonAvailable.filter((pokemon) => (pokemon !== secondBattle.winner) && (pokemon !== secondBattle.loser))
 
-            console.log(`\x1B[93;1mThe scores after two rounds are... \x1B[97;1m${player1.name} - \x1B[93;1m${player1WinCount}\x1B[97;1m || ${player2.name} - \x1B[93;1m${player2WinCount} \x1B[m`)
-            console.log("");
+            console.log(`\x1B[93;1mThe scores after two rounds are... \x1B[97;1m${player1.name} - \x1B[93;1m${player1WinCount}\x1B[97;1m || ${player2.name} - \x1B[93;1m${player2WinCount} \x1B[m\n`)
 
             return inquirer.prompt(commenceBattle3)
 
@@ -416,13 +410,9 @@ function playGame () {
         .then((battle3Choices) => {
 
             if (battle3Choices.player1BattleChoice3 === "No thanks" || battle3Choices.player2BattleChoice3 === "No thanks" ) {
-                console.log("");
-                console.log(`\x1B[93;1mFinal scores... \x1B[97;1m${player1.name} - \x1B[93;1m${player1WinCount}\x1B[97;1m || ${player2.name} - \x1B[93;1m${player2WinCount} \x1B[m`)
-                console.log("");
-                console.log("\x1B[95;1mThanks for playing!!");
-                console.log("");
-                console.log(`\x1B[36;1m--------------------------------------------------------------\x1B[m`);
-                console.log("");
+                console.log(`\n\x1B[93;1mFinal scores... \x1B[97;1m${player1.name} - \x1B[93;1m${player1WinCount}\x1B[97;1m || ${player2.name} - \x1B[93;1m${player2WinCount} \x1B[m\n`)
+                console.log("\x1B[95;1mThanks for playing!!\n");
+                console.log(`\x1B[36;1m-----------------------------------------------------------------------\x1B[m\n`);
                 process.exit();
             }
 
@@ -436,17 +426,14 @@ function playGame () {
             if (p1PokemonAvailable.includes(thirdBattle.winner)) player1WinCount ++
             if (p2PokemonAvailable.includes(thirdBattle.winner)) player2WinCount ++
 
-            console.log(`\x1B[93;1mThe final scores are... \x1B[97;1m${player1.name} - \x1B[93;1m${player1WinCount}\x1B[97;1m || ${player2.name} - \x1B[93;1m${player2WinCount} \x1B[m`)
-            console.log("");
+            console.log(`\x1B[93;1mThe final scores are... \x1B[97;1m${player1.name} - \x1B[93;1m${player1WinCount}\x1B[97;1m || ${player2.name} - \x1B[93;1m${player2WinCount} \x1B[m\n`)
 
             if (player1WinCount > player2WinCount) {
-                console.log(`\x1B[95;1m${player1.name} wins!!!\x1B[m`);
-                console.log("");
+                console.log(`\x1B[95;1m${player1.name} wins!!!\x1B[m\n`);
             }
 
             if (player1WinCount < player2WinCount) {
-                console.log(`\x1B[95;1m${player2.name} wins!!!\x1B[m`);
-                console.log("");
+                console.log(`\x1B[95;1m${player2.name} wins!!!\x1B[m\n`);
             }
 
             return inquirer.prompt(playAgain)
@@ -456,47 +443,38 @@ function playGame () {
 
             if (playAgainResult.playAgain === 'Of course!') {
 
-                console.log("");
-                console.log(`\x1B[36;1m--------------------------------------------------------------\x1B[m`);
-                console.log("");
-
+                console.log(`\n\x1B[36;1m-----------------------------------------------------------------------\x1B[m\n`);
                 playGame()
 
             } else {
-                console.log("");
-                console.log("\x1B[1mThanks for playing!!");
-                console.log("");
-                console.log(`\x1B[36;1m--------------------------------------------------------------\x1B[m`);
-                console.log("");
+                console.log("\n\x1B[1mThanks for playing!!\n");
+                console.log(`\x1B[36;1m-----------------------------------------------------------------------\x1B[m\n`);
             }
 
 
 
         })
         .catch((error) => {
-            if (error.isTtyError) {
+            if (error.isTtyError, "-----Prompt error") {
                 // Prompt couldn't be rendered in the current environment
                 console.log(error);
             } else {
-                console.log(error);
+                console.log(error, "-----Error");
                 // Something else went wrong
             }
         })
 }
 
-console.log("");
-    console.log(`\x1B[36;1m--------------------------------------------------------------\x1B[m`);
+    console.log(`\n\x1B[36;1m-----------------------------------------------------------------------\x1B[m`);
     console.log(`\x1B[3m`);
     console.log(`\x1B[1mWelcome to Mundo's Pokemon Battler!`);
     console.log("\x1B[0m");
-    console.log(`You have 4 opportunities to catch 3 Pokemon so chose wisely`);
-    console.log(`After that you will have the chance to battle them`);
-    console.log(`Winner is the best over 3 rounds`);
+    console.log(`You have 4 opportunities to catch 3 random Pokemon so choose wisely.`);
+    console.log(`After that you can battle each one against your opponent.`);
+    console.log(`Winner is the best of 3.`);
     console.log(`\x1B[3m`);
-    console.log(`\x1B[1mGood luck!`);
-    console.log("");
-    console.log(`\x1B[36;1m--------------------------------------------------------------\x1B[m`);
-    console.log("");
+    console.log(`\x1B[1mGood luck!\n`);
+    console.log(`\x1B[36;1m-----------------------------------------------------------------------\x1B[m\n`);
 
 playGame()
 

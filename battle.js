@@ -13,15 +13,11 @@ class Battle {
 
     coinToss(){
         if (Math.random() <=0.5){
-            console.log("");
-            console.log(`${this.trainer1.name} won the coin toss and will go first!`);
-            console.log("");
+            console.log(`\n${this.trainer1.name} won the coin toss and will go first!\n`);
             this.currentPlayer = this.trainer1
             this.currentPokemon = this.pokemon1
         } else {
-            console.log("");
-            console.log(`${this.trainer2.name} won the coin toss and will go first!`);
-            console.log("");
+            console.log(`\n${this.trainer2.name} won the coin toss and will go first!\n`);
             this.currentPlayer = this.trainer2
             this.currentPokemon = this.pokemon2
         }
@@ -67,9 +63,7 @@ class Battle {
         this.defender.takeDamage(attackerDamage)
 
         if (this.defender.hasFainted()){
-            console.log("");
-            console.log(`\x1B[91;1m${this.defender.name} fainted. \x1B[92;1m${this.currentPlayer.name}'s ${this.attacker.name} is the winner!\x1B[m`);
-            console.log("");
+            console.log(`\n\x1B[91;1m${this.defender.name} fainted. \x1B[92;1m${this.currentPlayer.name}'s ${this.attacker.name} is the winner!\x1B[m\n`);
             this.winner = this.attacker.name
             this.loser = this.defender.name
         } else {
