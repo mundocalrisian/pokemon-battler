@@ -8,9 +8,11 @@ function playGame () {
     let player1 = ""
     let p1PokemonAvailable = []
     let player1WinCount = 0
+    let p1ExtraThrow = false
     let player2 = ""
     let p2PokemonAvailable = []
     let player2WinCount = 0
+    let p2ExtraThrow = false
 
     const pokemonChoices = getRandomPokemonArray()
     let randomPokemon1 = pokemonChoices[0]
@@ -72,10 +74,18 @@ function playGame () {
     const p1SecondCatch = [
         {
             type: 'list',
-            choices: [
-                {name: 'Catch it!', value: randomPokemon3}, 
-                {name: 'Not right now', value: null}
-            ],
+            choices: () => {
+                if (p1ExtraThrow) {
+                    return [
+                        {name: 'Catch it!', value: randomPokemon3}, 
+                    ]
+                } else {
+                    return [
+                        {name: 'Catch it!', value: randomPokemon3}, 
+                        {name: 'Not right now', value: null}
+                    ]
+                }
+            },
             message: () => {
                 return `\x1B[92;1m${player1.name}\x1B[m - A wild ${randomPokemon3.name} appeared. Would you like to catch it?`
             },
@@ -86,10 +96,18 @@ function playGame () {
     const p2SecondCatch = [
         {
             type: 'list',
-            choices: [
-                {name: 'Catch it!', value: randomPokemon4}, 
-                {name: 'Not right now', value: null}
-            ],
+            choices: () => {
+                if (p2ExtraThrow) {
+                    return [
+                        {name: 'Catch it!', value: randomPokemon4}, 
+                    ]
+                } else {
+                    return [
+                        {name: 'Catch it!', value: randomPokemon4}, 
+                        {name: 'Not right now', value: null}
+                    ]
+                }
+            },
             message: () => {
                 return `\x1B[92;1m${player2.name}\x1B[m - A wild ${randomPokemon4.name} appeared. Would you like to catch it?`
             },
@@ -100,10 +118,18 @@ function playGame () {
     const p1ThirdCatch = [
         {
             type: 'list',
-            choices: [
-                {name: 'Catch it!', value: randomPokemon5},
-                {name: 'Not right now', value: null} 
-            ],
+            choices: () => {
+                if (p1ExtraThrow) {
+                    return [
+                        {name: 'Catch it!', value: randomPokemon5}, 
+                    ]
+                } else {
+                    return [
+                        {name: 'Catch it!', value: randomPokemon5}, 
+                        {name: 'Not right now', value: null}
+                    ]
+                }
+            },
             message: () => {
                 return `\x1B[92;1m${player1.name}\x1B[m - A wild ${randomPokemon5.name} appeared. Would you like to catch it?`
             },
@@ -114,10 +140,18 @@ function playGame () {
     const p2ThirdCatch = [
         {
             type: 'list',
-            choices: [
-                {name: 'Catch it!', value: randomPokemon6},
-                {name: 'Not right now', value: null}
-            ],
+            choices: () => {
+                if (p2ExtraThrow) {
+                    return [
+                        {name: 'Catch it!', value: randomPokemon6}, 
+                    ]
+                } else {
+                    return [
+                        {name: 'Catch it!', value: randomPokemon6}, 
+                        {name: 'Not right now', value: null}
+                    ]
+                }
+            },
             message: () => {
                 return `\x1B[92;1m${player2.name}\x1B[m - A wild ${randomPokemon6.name} appeared. Would you like to catch it?`
             },
@@ -277,11 +311,12 @@ function playGame () {
             return inquirer.prompt(p1FirstCatch)
         })
         .then((p1FirstCatchPokemon) => {
-
+            
             if (p1FirstCatchPokemon.player1Pokemon){
                 player1.catch(p1FirstCatchPokemon.player1Pokemon)
                 p1PokemonAvailable.push(p1FirstCatchPokemon.player1Pokemon.name)
             }
+            if (p1FirstCatchPokemon.player1Pokemon === null) p1ExtraThrow = true
 
             return inquirer.prompt(p2FirstCatch)
         })
@@ -291,15 +326,17 @@ function playGame () {
                 player2.catch(p2FirstCatchPokemon.player2Pokemon)
                 p2PokemonAvailable.push(p2FirstCatchPokemon.player2Pokemon.name)
             }
+            if (p2FirstCatchPokemon.player2Pokemon === null) p2ExtraThrow = true
 
             return inquirer.prompt(p1SecondCatch)
         })
         .then((p1SecondCatchPokemon) => {
-
+            
             if (p1SecondCatchPokemon.player1Pokemon2){
                 player1.catch(p1SecondCatchPokemon.player1Pokemon2)
                 p1PokemonAvailable.push(p1SecondCatchPokemon.player1Pokemon2.name)
             }
+            if (p1SecondCatchPokemon.player1Pokemon2 === null) p1ExtraThrow = true
             
             return inquirer.prompt(p2SecondCatch)
         })
@@ -309,6 +346,8 @@ function playGame () {
                 player2.catch(p2SecondCatchPokemon.player2Pokemon2)
                 p2PokemonAvailable.push(p2SecondCatchPokemon.player2Pokemon2.name)
             }
+            if (p2SecondCatchPokemon.player2Pokemon2 === null) p2ExtraThrow = true
+
             return inquirer.prompt(p1ThirdCatch)
         })
         .then((p1ThirdCatchPokemon) => {
@@ -317,6 +356,7 @@ function playGame () {
                 player1.catch(p1ThirdCatchPokemon.player1Pokemon3)
                 p1PokemonAvailable.push(p1ThirdCatchPokemon.player1Pokemon3.name)
             }
+            if (p1ThirdCatchPokemon.player1Pokemon3 === null) p1ExtraThrow = true
             
             return inquirer.prompt(p2ThirdCatch)
         })
@@ -326,6 +366,7 @@ function playGame () {
                 player2.catch(p2ThirdCatchPokemon.player2Pokemon3)
                 p2PokemonAvailable.push(p2ThirdCatchPokemon.player2Pokemon3.name)
             }
+            if (p2ThirdCatchPokemon.player2Pokemon3 === null) p2ExtraThrow = true
 
             if (!player1.isBeltFull() && player2.isBeltFull()){
                 return inquirer.prompt(p1ForthCatch)
