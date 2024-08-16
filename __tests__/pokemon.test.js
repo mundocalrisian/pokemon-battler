@@ -5,7 +5,7 @@ const { WaterType, Squirtle } = require('../classes/water-type');
 const { NormalType, Eevee } = require('../classes/normal-type');
 const { Pokeball } = require('../classes/pokeball');
 const { Trainer } = require('../classes/trainer');
-const { Battle } = require('../battle');
+const { Battle } = require('../classes/battle');
 
 beforeEach(() => {logSpy = jest.spyOn(global.console, 'log')})
 afterEach(() => {logSpy.mockRestore()})
@@ -447,7 +447,7 @@ describe('POKEBALL', () => {
             testPokeball.throw = testPokemon
             testPokeball.throw
             expect(logSpy).toHaveBeenCalled()
-            expect(logSpy).toHaveBeenCalledWith(`GO ${testPokemon.name}!`)
+            expect(logSpy).toHaveBeenCalledWith(`\n\x1B[31;3mGO ${testPokemon.name}!\x1B[m`)
         });
         test('should return a message when no Pokemon is supplied and there is no Pokemon stored', () => {
             const testPokeball = new Pokeball()
@@ -549,7 +549,7 @@ describe('TRAINER', () => {
             testTrainer.catch(testPokemon2)
             testTrainer.getPokemon(testPokemon2.name)
             expect(logSpy).toHaveBeenCalledTimes(3)
-            expect(logSpy).toHaveBeenCalledWith("GO Test Pokemon 2!")
+            expect(logSpy).toHaveBeenCalledWith(`\n\x1B[31;3mGO ${testPokemon2.name}!\x1B[m`)
         });
         test('should return the pokemon whos name has been supplied', () => {
             const testTrainer = new Trainer ("Test Trainer")
@@ -705,7 +705,7 @@ describe('BATTLE', () => {
             testBattle.currentPokemon = testCharmander
             expect(testEevee.hitPoints).toEqual(15)
             testBattle.fight(testCharmander)
-            expect(logSpy).toHaveBeenCalledWith(`\x1B[91;1m${testEevee.name} fainted. \x1B[92;1m${trainer1.name}'s ${testCharmander.name} is the winner!\x1B[m`)
+            expect(logSpy).toHaveBeenCalledWith(`\n\x1B[91;1m${testEevee.name} fainted. \x1B[92;1m${trainer1.name}'s ${testCharmander.name} is the winner!\x1B[m\n`)
         });
         test('should end the players turn if the defending Pokemon has not fainted and the attacking and defending roles should swap', () => {
             const trainer1 = new Trainer('Trainer 1')
@@ -732,7 +732,7 @@ describe('BATTLE', () => {
             expect(testBattle.winner).toBe(`${testEevee.name}`)
             expect(testBattle.loser).toBe(`${testCharmander.name}`)
             expect(logSpy).toHaveBeenCalledTimes(12)
-            expect(logSpy).toHaveBeenCalledWith(`\x1B[91;1m${testCharmander.name} fainted. \x1B[92;1m${trainer2.name}'s ${testEevee.name} is the winner!\x1B[m`)
+            expect(logSpy).toHaveBeenCalledWith(`\n\x1B[91;1m${testCharmander.name} fainted. \x1B[92;1m${trainer2.name}'s ${testEevee.name} is the winner!\x1B[m\n`)
         });
     });
 });
