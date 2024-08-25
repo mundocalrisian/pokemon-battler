@@ -1,0 +1,24 @@
+name: Test
+on:  
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  confirmation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: confirmation
+        run: echo 'Tests workflow running...'
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: clone repo and checkout main
+        uses: actions/checkout@v4.1.7
+      - name: install dependencies
+        run: npm install
+      - run: echo 'Dependencies installed'
+      - name: run tests
+        run: npm test
+      - run: echo 'Tests complete! 😁'
+            
